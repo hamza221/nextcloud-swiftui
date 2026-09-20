@@ -1,0 +1,77 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# SwiftLint here is NOT a style tool -- `swift format` owns formatting entirely.
+# These rules exist to make design-system invariants a build failure instead of a
+# review miss. Keep this file small; every rule added should encode an invariant.
+
+only_rules:
+  - custom_rules
+  - force_cast
+  - force_try
+  - force_unwrapping
+
+excluded:
+  - .build
+  - LICENSES
+  - Tests/NextcloudUISnapshotTests/__Snapshots__
+
+force_unwrapping:
+  severity: error
+force_cast:
+  severity: error
+force_try:
+  severity: error
+
+custom_rules:
+  nc_no_color_literal:
+    excluded: "Sources/NextcloudDesign/Color/.*"
+    name: "Raw colour literal"
+    regex: 'Color\s*\(\s*(red|\.sRGB|hue)'
+    message: "Colours come from \\.ncTheme tokens, never from a literal. If it is data (a tag or calendar colour), take a Color parameter instead."
+    severity: error
+    match_kinds: [identifier, keyword, parameter]
+
+  nc_no_hardcoded_font_size:
+    name: "Hardcoded font size"
+    regex: '\.system\s*\(\s*size\s*:'
+    message: "Use a semantic Font (.body, .headline) or theme.typography so Dynamic Type works."
+    severity: error
+
+  nc_no_uikit_import:
+    excluded: "Sources/NextcloudPlatform/.*"
+    name: "UI framework import outside the platform layer"
+    regex: '^\s*(@_implementationOnly\s+)?(public\s+|internal\s+)?import\s+(AppKit|UIKit|Cocoa)\b'
+    message: "AppKit/UIKit may only be imported under Sources/NextcloudPlatform/. Add an abstraction there instead."
+    severity: error
+
+  nc_no_print:
+    name: "print in library code"
+    regex: '(^|\s)print\s*\('
+    message: "A UI library must not write to stdout. Remove it, or use os.Logger."
+    severity: error
+
+  nc_no_async_image:
+    name: "AsyncImage"
+    regex: '\bAsyncImage\b'
+    message: "AsyncImage uses URLSession.shared, which puts networking in a network-free package and bypasses the app's authenticated session (Nextcloud avatar endpoints 401). Take an @Sendable loader closure instead."
+    severity: error
+
+  nc_no_os_check_outside_platform:
+    excluded: "Sources/NextcloudPlatform/.*"
+    name: "#if os() outside the platform layer"
+    regex: '#if\s+(!\s*)?os\s*\('
+    message: "Use #if canImport(AppKit) inside Sources/NextcloudPlatform/. Outside it, branch on nothing at all."
+    severity: error
+
+  nc_no_appkit_in_public_api:
+    name: "Platform type in public API"
+    regex: 'public\s+(final\s+)?(func|var|let|struct|class|enum|actor|typealias|init)[^\n]*\b(NS|UI)[A-Z]\w*'
+    message: "Public declarations must not expose NS*/UI* types; wrap them in a SwiftUI-typed surface in NextcloudPlatform."
+    severity: error
+
+  nc_no_magic_metrics:
+    name: "Magic number in a layout modifier"
+    regex: '\.(padding|cornerRadius)\s*\(\s*\d'
+    message: "Layout constants come from theme.metrics, not literals."
+    severity: warning

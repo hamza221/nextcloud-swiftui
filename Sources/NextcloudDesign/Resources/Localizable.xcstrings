@@ -1,0 +1,22 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "a few seconds ago" : {
+      "comment" : "Relative time for a moment that just passed, used when second-level precision is suppressed.",
+      "extractionState" : "manual"
+    },
+    "Invalid date" : {
+      "comment" : "Shown in place of a relative time when the date cannot be represented.",
+      "extractionState" : "manual"
+    },
+    "sec. ago" : {
+      "comment" : "FOR TRANSLATORS: The shortest possible version of 'a few seconds ago'.",
+      "extractionState" : "manual"
+    },
+    "seconds ago" : {
+      "comment" : "FOR TRANSLATORS: A shorter version of 'a few seconds ago'.",
+      "extractionState" : "manual"
+    }
+  },
+  "version" : "1.0"
+}
