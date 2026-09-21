@@ -22,13 +22,13 @@ and about 26 views.
 
 ## Status
 
-Early. The foundation is in place; most components are not yet built.
+All six waves are built. The API is not yet frozen.
 
 | | |
 | --- | --- |
-| **Built** | Design tokens, theme, brand derivation, contrast maths, `usernameToColor`, the platform layer, the icon catalogue, wave 1 atoms |
-| **Next** | Wave 2 identity (`NCAvatar`, `NCAsyncImage`), wave 3 lists (`NCListItem`) |
-| **Not started** | Navigation, input, DocC articles |
+| **Built** | Design tokens, theme, brand derivation, contrast maths, `usernameToColor`, the platform layer, 91 Material Design Icons symbol assets, and the components: identity, lists, navigation, input and the wave 1 atoms |
+| **Next** | Build a real Mail client against it, and freeze the API on what that finds |
+| **Deferred** | Release signing and notarization, the Transifex pipeline, and the v1.1 components listed in the roadmap |
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the full plan and what is
 deliberately deferred.

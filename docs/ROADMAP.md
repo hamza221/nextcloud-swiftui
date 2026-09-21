@@ -35,14 +35,24 @@ violate the pure-presentation rule.
 | Wave | Contents | Status |
 | --- | --- | --- |
 | 0 — Foundation | Token types, `NCTheme` + environment, `NCContrast`, `NCBrand`, `NCUsernameColor`, `NCAvatarPalette`, `NCRelativeDateFormatter` | **Done** |
-| 1 — Atoms | `NCIcon` + catalogue, `NCCounterBubble`, `NCChip`, `NCHighlight`, `NCNoteCard`, `NCUserStatusBadge`, `NCKeyboardShortcutLabel` | **Done** (icon assets pending) |
-| 2 — Identity | `NCAsyncImage` + cache, `NCAvatar`, `NCUserBubble`, `NCProfileCard` | Next |
-| 3 — Lists | `NCListItem`, `NCListItemDetails`, `NCEmptyContent` | |
-| 4 — Navigation | `NCNavigationItem`, `NCNavigationCaption`, `NCBreadcrumbs`, `NCSettingsSection` | |
-| 5 — Input | `NCButtonStyle`, `NCLabelStyle`, `NCUserPicker`, `NCReactionPicker`, progress style | |
-| 6 — Polish | Accessibility pass, DocC catalogue, `Nc*` → `NC*` migration table | |
+| 1 — Atoms | `NCIcon` + catalogue, `NCCounterBubble`, `NCChip`, `NCHighlight`, `NCNoteCard`, `NCUserStatusBadge`, `NCKeyboardShortcutLabel` | **Done** |
+| 2 — Identity | `NCAsyncImage` + cache, `NCAvatar`, `NCUserBubble`, `NCProfileCard` | **Done** |
+| 3 — Lists | `NCListItem`, `NCListItemDetails`, `NCEmptyContent` | **Done** (`NCEmptyContent` not built, see below) |
+| 4 — Navigation | `NCNavigationItem`, `NCNavigationCaption`, `NCBreadcrumbs`, `NCSettingsSection` | **Done** (`NCSettingsSection` not built, see below) |
+| 5 — Input | `NCButtonStyle`, `NCLabelStyle`, `NCUserPicker`, `NCReactionPicker`, progress style | **Done** |
+| 6 — Polish | Accessibility pass, DocC catalogue, `Nc*` → `NC*` migration table | **Done** |
 
 Wave 0 was a hard serial dependency — everything reads it.
+
+## Two planned components were not built
+
+`NCEmptyContent` and `NCSettingsSection` were each about to wrap a system view
+and take behaviour away. `ContentUnavailableView` scales its glyph with Dynamic
+Type and ships translated in every language Apple supports; `Form` with
+`.formStyle(.grouped)` already draws the grouping, separators, label-column
+alignment and window restoration that System Settings uses. Both decisions are
+written up with the code to use instead, in `EmptyStates.md` and
+`SettingsSections.md` in the DocC catalogue.
 
 ## Not yet built from the plan
 
@@ -57,12 +67,17 @@ Wave 0 was a hard serial dependency — everything reads it.
   0–24 stepping by 2. A `@Showcase` macro is deferred, not rejected — the knob
   array is the stable contract either way, so it stays a pure code generator over
   an API built regardless. Revisit at ~40 demos.
-- **Icon assets.** The catalogue defines all 91 names upstream imports and every
-  symbol currently falls back to SF Symbols (82 of 91 have an equivalent). See
-  `Tools/mdi-to-symbolset/README.md`. Running it is a data change, not a code
-  change.
-- **Full visual regression coverage.** The target, workflows and rebaseline
-  command exist; only the wave 1 atoms are covered so far.
+- **An `actool` step for SwiftPM.** The 91 MDI symbolsets are generated and
+  committed, but SwiftPM copies an asset catalogue without compiling it, so there
+  is no `Assets.car` under `swift build` and `make showcase` still renders the SF
+  Symbols fallbacks. Xcode compiles them and renders the real glyphs. `NCIcon`
+  detects the missing `Assets.car` and falls back rather than drawing blank, so
+  nothing regressed. The fix is a build-tool plugin, which CONTRIBUTING argues
+  against on the grounds that a plugin taxes every incremental build for
+  everyone. Worth a deliberate decision rather than a default.
+- **Recording the visual regression baselines.** Every wave now has a snapshot
+  suite, and only wave 1's baselines are committed. Baselines are recorded on the
+  pinned CI runner image only, so the rest need one `/update-snapshots` run.
 - **Release automation** (Developer ID signing, notarization, DMG) and the
   **Transifex pipeline**. Both deliberately deferred: translations churn on every
   string change until the API is stable, and there is nothing to release yet.
@@ -89,8 +104,11 @@ colours, where Nextcloud uses a fixed named swatch grid.
 
 ## The real test
 
-Build one Mail screen — mailbox sidebar, message list, message header with
-avatar and recipients — in a scratch app against the package. That exercises
-`NCNavigationItem`, `NCCounterBubble`, `NCListItem`, `NCAvatar` and
-`NCUserPicker` together and will surface API problems no unit test finds. Do it
-at the end of wave 3, not at the end of the project.
+Done, as the Mail screen demo in `NextcloudShowcase`: mailbox sidebar, message
+list, message header with avatar. It exercises `NCNavigationItem`,
+`NCCounterBubble`, `NCListItem`, `NCAvatar` and `NCUserBubble` together, which is
+what surfaces API problems no unit test finds.
+
+It is a showcase demo rather than a scratch app, so it still proves less than
+building against the package from outside. A real Mail client remains the test
+that counts.
