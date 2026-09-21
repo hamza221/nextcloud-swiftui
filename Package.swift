@@ -77,6 +77,13 @@ let package = Package(
             swiftSettings: sharedSwiftSettings
         ),
 
+        // The live catalogue. `swift run NextcloudShowcase`.
+        .executableTarget(
+            name: "NextcloudShowcase",
+            dependencies: ["NextcloudUI"],
+            swiftSettings: sharedSwiftSettings
+        ),
+
         .testTarget(
             name: "NextcloudDesignTests",
             dependencies: ["NextcloudDesign"],
