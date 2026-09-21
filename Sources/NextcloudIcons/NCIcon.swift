@@ -53,8 +53,19 @@ public struct NCIcon: View {
 
     private var dimension: CGFloat { size.dimension(theme.metrics) }
 
+    /// Whether the resource bundle carries a compiled asset catalogue.
+    ///
+    /// SwiftPM copies `Media.xcassets` into the bundle without running `actool`,
+    /// so under a plain `swift build` -- `make showcase`, `swift test` -- there is
+    /// no `Assets.car` and every symbol lookup returns an empty image. Xcode does
+    /// run `actool`, so an app consuming this package gets the real glyphs. The
+    /// check costs one `Bundle` lookup at first use and turns a silent blank into
+    /// the same fallback an ungenerated icon gets.
+    private static let hasCompiledAssetCatalog =
+        Bundle.module.url(forResource: "Assets", withExtension: "car") != nil
+
     private var image: Image {
-        if symbol.hasBundledAsset {
+        if symbol.hasBundledAsset, Self.hasCompiledAssetCatalog {
             Image(symbol.asset, bundle: .module)
         } else if let systemFallback = symbol.systemFallback {
             Image(systemName: systemFallback)
