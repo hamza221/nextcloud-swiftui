@@ -35,4 +35,15 @@ import SwiftUI
     .preferredColorScheme(.dark)
 }
 
+#Preview("CounterBubble / increased contrast", traits: .ncIncreasedContrast) {
+    // The highlighted role puts `onPrimary` on `primary`, which is the one pair
+    // here that the theme derives rather than the system supplying.
+    HStack(spacing: 12) {
+        ForEach(NCCounterBubble.Role.allCases, id: \.self) { role in
+            NCCounterBubble(count: 7, role: role)
+        }
+    }
+    .padding()
+}
+
 #endif

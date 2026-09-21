@@ -11,7 +11,7 @@ public import SwiftUI
 /// would make every call site responsible for staying consistent with the design
 /// system, and they will not. A ``Role`` names the meaning and the system picks
 /// the colour. The exception is data that genuinely carries its own colour -- a
-/// calendar, a tag -- which is what ``tint`` is for.
+/// calendar, a tag -- which is what `tint:` is for.
 public struct NCChip<Leading: View>: View {
     private let text: String
     private let role: Role
@@ -79,6 +79,12 @@ public struct NCChip<Leading: View>: View {
                 NCIcon(.close, label: .decorative, size: .small)
             }
             .buttonStyle(.plain)
+            // The glyph is 12pt. Clicking it should not be a test of aim, so the
+            // button keeps the platform's hit target whatever the icon measures.
+            .frame(
+                minWidth: NCPlatformMetrics.minimumHitTarget,
+                minHeight: NCPlatformMetrics.minimumHitTarget
+            )
             .ncPointerStyle(.link)
             // Surfaced as an accessibility action on the chip itself instead.
             .accessibilityHidden(true)

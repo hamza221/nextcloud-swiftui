@@ -31,9 +31,9 @@ above. The height is not worth it.
 
 ## Roles
 
-``NCProgressStyle/Role/normal`` follows ``NCAccentPolicy`` the way
+``NCProgressStyle/Role/normal`` follows `NCAccentPolicy` the way
 ``NCButtonStyle`` does: brand-tinted, unless the app asked for the user's macOS
-accent with ``NCAccentPolicy/system``.
+accent with `NCAccentPolicy.system`.
 
 ``NCProgressStyle/Role/warning`` and ``NCProgressStyle/Role/error`` are status
 tokens and ignore the policy, so a stalled sync is amber and a failed upload is
@@ -65,6 +65,6 @@ system's Reduce Transparency and Reduce Motion behaviour.
 
 - ``NCProgressStyle/Role``
 
-### Related
+## See Also
 
-- ``NCAccentPolicy``
+- ``NCButtonStyle``

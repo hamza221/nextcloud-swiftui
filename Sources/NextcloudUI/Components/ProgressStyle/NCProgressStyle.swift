@@ -27,7 +27,7 @@ public import SwiftUI
 ///
 /// ## The roles
 ///
-/// ``NCProgressStyle/Role/normal`` follows ``NCAccentPolicy`` the way
+/// ``NCProgressStyle/Role/normal`` follows `NCAccentPolicy` the way
 /// ``NCButtonStyle`` does: brand-tinted unless the app asked for the user's
 /// macOS accent. ``NCProgressStyle/Role/warning`` and
 /// ``NCProgressStyle/Role/error`` are status tokens and ignore the policy, so a

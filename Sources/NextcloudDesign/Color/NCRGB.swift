@@ -115,7 +115,9 @@ nonisolated extension NCRGB {
     /// Blends toward another colour in sRGB, the space CSS interpolates in by
     /// default.
     ///
-    /// - Parameter amount: `0` returns the receiver, `1` returns `other`.
+    /// - Parameters:
+    ///   - other: The colour to blend toward.
+    ///   - amount: `0` returns the receiver, `1` returns `other`.
     public func mixed(with other: NCRGB, amount: Double) -> NCRGB {
         let t = Swift.min(Swift.max(amount, 0), 1)
         return NCRGB(

@@ -61,12 +61,9 @@ private let previewSummary = NCReactionSummary([
         .preferredColorScheme(.dark)
 }
 
-#Preview("ReactionPicker / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so Increase Contrast cannot be
-    // forced from preview code -- toggle it in the canvas accessibility
-    // controls. The thing to watch is whether a pill this account reacted with
-    // still reads as different from one it did not, since that difference is
-    // carried by the chip's surface token.
+#Preview("ReactionPicker / increased contrast", traits: .ncIncreasedContrast) {
+    // Watch whether a pill this account reacted with still reads as different
+    // from one it did not. That difference is the chip's surface token.
     NCReactionPickerHost(summary: previewSummary)
 }
 

@@ -35,7 +35,7 @@ public struct NCCounterBubble: View {
     ///   - limit: The largest number shown exactly; above it, `"99+"`.
     ///   - label: How assistive technology describes it. Defaults to a spoken
     ///     unread count, which is right in the common case; pass
-    ///     ``NCAccessibilityLabel/decorative`` when the surrounding row already
+    ///     `NCAccessibilityLabel.decorative` when the surrounding row already
     ///     says it.
     public init(
         count: Int,

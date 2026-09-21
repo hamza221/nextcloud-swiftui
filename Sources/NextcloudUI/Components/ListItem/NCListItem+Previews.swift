@@ -94,12 +94,9 @@ extension MailboxPreview.Message {
         .preferredColorScheme(.dark)
 }
 
-#Preview("ListItem / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so this cannot be forced from code.
-    // Turn on Increase Contrast in System Settings, or the accessibility
-    // inspector in the Xcode canvas, and check that the subtitle's `.secondary`
-    // and the row separator both stay legible: nothing here paints its own
-    // contrast, which is the point.
+#Preview("ListItem / increased contrast", traits: .ncIncreasedContrast) {
+    // Watch the subtitle's `.secondary` and the row separator. Nothing here
+    // paints its own contrast, which is the point.
     MailboxPreview(messages: MailboxPreview.Message.inbox)
 }
 

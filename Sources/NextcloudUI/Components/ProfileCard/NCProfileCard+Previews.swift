@@ -62,10 +62,8 @@ import SwiftUI
     .preferredColorScheme(.dark)
 }
 
-#Preview("ProfileCard / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so Increase Contrast cannot be
-    // forced from code -- toggle it in the canvas accessibility controls. The
-    // secondary lines are `.secondary`, which the system handles.
+#Preview("ProfileCard / increased contrast", traits: .ncIncreasedContrast) {
+    // The secondary lines are `.secondary`, which the system handles.
     NCProfileCard(
         displayName: "Tom Mörtel",
         user: "tom",

@@ -72,11 +72,9 @@ private struct NCButtonStyleGallery: View {
         .preferredColorScheme(.dark)
 }
 
-#Preview("ButtonStyle / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so Increase Contrast cannot be
-    // forced from preview code -- toggle it in the canvas accessibility
-    // controls. The system styles redraw their borders and fills; the tokens
-    // supply their increased-contrast variants.
+#Preview("ButtonStyle / increased contrast", traits: .ncIncreasedContrast) {
+    // The system styles redraw their own borders and fills. All this style
+    // contributes is the tint.
     NCButtonStyleGallery()
 }
 

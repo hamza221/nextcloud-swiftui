@@ -19,7 +19,7 @@ public import SwiftUI
 /// }
 /// ```
 ///
-/// The app decodes with ``NCImageDecoder``, which downsamples straight to the
+/// The app decodes with `NCImageDecoder`, which downsamples straight to the
 /// target size rather than holding a 2000px bitmap on its way to a 32pt avatar.
 public struct NCAsyncImage<Placeholder: View>: View {
     private let identity: String
@@ -51,7 +51,7 @@ public struct NCAsyncImage<Placeholder: View>: View {
     ///     id. It keys the cache and restarts the load when it changes. Include
     ///     anything the loader varies by, such as a pixel size. A blank identity
     ///     is loaded but not cached.
-    ///   - label: How the image describes itself. ``NCAccessibilityLabel/decorative``
+    ///   - label: How the image describes itself. `NCAccessibilityLabel.decorative`
     ///     when an enclosing view already carries the meaning.
     ///   - cache: Defaults to ``NCImageCache/shared``. Pass a separate instance
     ///     to keep one screen's images from evicting another's.

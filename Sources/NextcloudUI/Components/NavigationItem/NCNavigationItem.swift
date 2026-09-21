@@ -96,6 +96,12 @@ public struct NCNavigationItem<Actions: View>: View {
             .menuStyle(.borderlessButton)
             .menuIndicator(.hidden)
             .fixedSize()
+            // The row is tall enough; the button inside it is not. A 16pt glyph
+            // at the end of a sidebar row is the classic near-miss target.
+            .frame(
+                minWidth: NCPlatformMetrics.minimumHitTarget,
+                minHeight: NCPlatformMetrics.minimumHitTarget
+            )
             .ncAccessibilityLabel(actionsLabel)
         }
     }

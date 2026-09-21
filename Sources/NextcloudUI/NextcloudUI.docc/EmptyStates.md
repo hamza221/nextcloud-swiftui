@@ -24,19 +24,19 @@ ContentUnavailableView.search(text: query)
 
 ## What a wrapper would have added, and why none of it survives
 
-A wrapper would have taken an ``NCSymbol`` and applied theme tokens. Taken
+A wrapper would have taken an `NCSymbol` and applied theme tokens. Taken
 apart, that is three claims, and all three fail.
 
-**The symbol.** ``NCIcon`` sizes from `theme.metrics.icon`, whose largest step is
+**The symbol.** `NCIcon` sizes from `theme.metrics.icon`, whose largest step is
 20pt, because those are sizes for a row and a toolbar. `ContentUnavailableView`
 draws its glyph far larger than that and scales it with the container and with
 Dynamic Type. Passing it a fixed 20pt `NCIcon` replaces correct behaviour with a
 tiny mark and a `// ponytail:` comment. Sizing it properly means inventing an
-empty-state step in ``NCMetrics`` that exists for one caller.
+empty-state step in `NCMetrics` that exists for one caller.
 
 **The tokens.** There are none to apply. An empty state is a title, a
 description and a glyph, drawn in `.primary` and `.secondary` on the window
-background -- exactly the system semantics ``NCColorTokens`` deliberately does
+background -- exactly the system semantics `NCColorTokens` deliberately does
 not duplicate, for the reason set out there. The only Nextcloud-specific colour
 that could appear is the brand tint on an action button, and `.ncTheme(_:)`
 already sets `.tint` app-wide, so a `Button(...).buttonStyle(.borderedProminent)`
@@ -58,5 +58,5 @@ own words in it.
 
 If Nextcloud design specifies an illustration rather than a glyph -- the web
 client uses one in a few places -- that is a real difference and a wrapper earns
-itself at that point. It would take an `Image`, not an ``NCSymbol``, and it would
+itself at that point. It would take an `Image`, not an `NCSymbol`, and it would
 still delegate the layout to `ContentUnavailableView`.

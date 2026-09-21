@@ -30,7 +30,7 @@ minimum hit target from `NCPlatformMetrics`, which differs between macOS and iOS
 
 The system style is the point. It hides the title visually and keeps it as the
 label's spoken name, so a toolbar of nothing but glyphs stays navigable on
-VoiceOver. A bare ``NCIcon`` in a `Button` does not, and there is no way for the
+VoiceOver. A bare `NCIcon` in a `Button` does not, and there is no way for the
 reader to recover what the button does.
 
 ```swift
@@ -44,7 +44,7 @@ Button(action: archive) {
 .labelStyle(.ncIconOnly)
 ```
 
-The icon inside takes ``NCAccessibilityLabel/decorative``. The title beside it is
+The icon inside takes `NCAccessibilityLabel.decorative`. The title beside it is
 the answer, and hearing it twice is how a toolbar becomes unbearable.
 
 ``NCButtonStyle/Role/icon`` applies `.ncIconOnly` for you, so an icon button
@@ -73,7 +73,6 @@ No stacked icon-above-title layout: that belongs to an empty state, which is
 
 - ``NCLabelStyle/Layout``
 
-### Related
+## See Also
 
 - ``NCButtonStyle``
-- ``NCIcon``

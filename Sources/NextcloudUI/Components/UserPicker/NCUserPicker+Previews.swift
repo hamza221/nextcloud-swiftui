@@ -84,11 +84,9 @@ private struct NCUserPickerSingleHost: View {
         .preferredColorScheme(.dark)
 }
 
-#Preview("UserPicker / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so Increase Contrast cannot be
-    // forced from preview code -- toggle it in the canvas accessibility
-    // controls. Watch the chip's tinted surface and the secondary line in each
-    // row, which are the two things that lose contrast first.
+#Preview("UserPicker / increased contrast", traits: .ncIncreasedContrast) {
+    // Watch the chip's tinted surface and the secondary line in each row. Those
+    // are the two things that lose contrast first.
     NCUserPickerHost(candidates: previewCandidates, initial: ["lorelai"])
 }
 

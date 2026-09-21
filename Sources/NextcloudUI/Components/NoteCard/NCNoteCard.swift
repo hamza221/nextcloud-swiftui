@@ -65,7 +65,11 @@ public struct NCNoteCard<Content: View>: View {
 
     public var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: theme.metrics.spacing.standard) {
-            NCIcon(role.symbol, label: .decorative)
+            // Labelled rather than decorative, and it is the first child, so the
+            // combine below puts "Warning" in front of the message. Naming the
+            // role with `.accessibilityLabel` on the card instead would *replace*
+            // the combined label, and the message would go unread.
+            NCIcon(role.symbol, label: .text(role.accessibilityLabel))
                 .foregroundStyle(colours.element)
             VStack(alignment: .leading, spacing: theme.metrics.spacing.tight) {
                 if let title {
@@ -82,7 +86,6 @@ public struct NCNoteCard<Content: View>: View {
                 .fill(colours.surface)
         )
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(Text(role.accessibilityLabel))
     }
 
     private var colours: NCStatusColors { role.colours(theme.colors) }

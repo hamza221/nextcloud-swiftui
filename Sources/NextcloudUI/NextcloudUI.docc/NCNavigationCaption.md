@@ -41,8 +41,6 @@ below it.
 The header trait sits on the text rather than on the row, so the trailing control
 stays a separate element that VoiceOver and the keyboard can reach.
 
-## Topics
-
-### Related
+## See Also
 
 - ``NCNavigationItem``

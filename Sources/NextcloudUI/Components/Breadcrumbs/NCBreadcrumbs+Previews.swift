@@ -68,12 +68,7 @@ private struct NCBreadcrumbsPreview: View {
     NCBreadcrumbsPreview().preferredColorScheme(.dark)
 }
 
-// `\.colorSchemeContrast` is get-only, so this drives the tokens to a
-// high-contrast brand instead; the system half is the canvas's contrast variant.
-#Preview(
-    "Breadcrumbs / increased contrast",
-    traits: .ncTheme(brand: NCBrand(primaryHex: "#00263f") ?? .nextcloud)
-) {
+#Preview("Breadcrumbs / increased contrast", traits: .ncIncreasedContrast) {
     NCBreadcrumbsPreview()
 }
 

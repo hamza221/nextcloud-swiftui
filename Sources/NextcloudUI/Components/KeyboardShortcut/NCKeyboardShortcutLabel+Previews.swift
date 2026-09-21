@@ -18,4 +18,14 @@ import SwiftUI
     .padding()
 }
 
+#Preview("KeyboardShortcutLabel / increased contrast", traits: .ncIncreasedContrast) {
+    // The key cap is `.quaternary` on the window background, which the system
+    // darkens. Nothing here paints its own contrast.
+    VStack(alignment: .leading, spacing: 8) {
+        NCKeyboardShortcutLabel(NCKeyboardShortcut("k", modifiers: [.command, .shift]))
+        NCKeyboardShortcutLabel(NCKeyboardShortcut(.return, modifiers: [.command]))
+    }
+    .padding()
+}
+
 #endif

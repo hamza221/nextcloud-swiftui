@@ -45,15 +45,15 @@ style supplies.
 
 ## The tint is not always the brand
 
-``NCAccentPolicy/instance``, the default, already installs the brand as `.tint`
+`NCAccentPolicy.instance`, the default, already installs the brand as `.tint`
 app-wide through `.ncTheme(_:)`. Under that policy a primary button is
 brand-tinted with no style at all, and the explicit tint here is a no-op.
 
 The style earns its place under the other two policies:
 
-- ``NCAccentPolicy/brandSurfacesOnly`` leaves ordinary controls on the user's
+- `NCAccentPolicy.brandSurfacesOnly` leaves ordinary controls on the user's
   macOS accent. A primary action is a brand surface, so it is tinted here.
-- ``NCAccentPolicy/system`` tints nothing. The style passes a `nil` tint, and the
+- `NCAccentPolicy.system` tints nothing. The style passes a `nil` tint, and the
   button keeps the user's accent.
 
 ``NCButtonStyle/Role/error`` ignores the policy entirely. An error colour is a
@@ -100,7 +100,7 @@ Button(action: archive) {
 .buttonStyle(.icon)
 ```
 
-The icon inside takes ``NCAccessibilityLabel/decorative``, because the title is
+The icon inside takes `NCAccessibilityLabel.decorative`, because the title is
 already the answer.
 
 ## Topics
@@ -109,7 +109,6 @@ already the answer.
 
 - ``NCButtonStyle/Role``
 
-### Related
+## See Also
 
 - ``NCLabelStyle``
-- ``NCAccentPolicy``

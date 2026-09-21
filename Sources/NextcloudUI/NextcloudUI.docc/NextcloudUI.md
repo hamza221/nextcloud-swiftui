@@ -4,64 +4,90 @@ SwiftUI components for native Nextcloud clients.
 
 ## Overview
 
-`NextcloudUI` re-exports ``NextcloudDesign`` and ``NextcloudIcons``, so one
-import is enough:
+`NextcloudUI` re-exports `NextcloudDesign` and `NextcloudIcons`, so one import
+is enough:
 
 ```swift
 import NextcloudUI
 ```
 
-Install a theme once, near the root of a `Scene`, and re-assign it when the
-server's capabilities call returns:
+New here? Read <doc:GettingStarted>. Coming from `@nextcloud/vue`? Read
+<doc:MigratingFromNextcloudVue> first: most of what you are looking for is
+already a system API, and the table says which one.
 
-```swift
-ContentView().ncTheme(NCTheme(brand: brand))
+### Three modules, three archives
+
+`@_exported import` gives a consumer one import line, but it does not merge
+symbol graphs, and DocC builds one archive per module. So a link from here to
+`NCTheme` or `NCIcon` would not resolve, and every reference to a
+`NextcloudDesign` or `NextcloudIcons` symbol in this archive is written in plain
+code voice rather than as a link. Their own archives carry their reference
+documentation:
+
+```sh
+NC_BUILD_DOCS=1 swift package generate-documentation --target NextcloudDesign
+NC_BUILD_DOCS=1 swift package generate-documentation --target NextcloudIcons
 ```
 
-Tokens conform to `ShapeStyle`, so they go anywhere SwiftUI takes a style — and
-no component ever needs to read `\.colorScheme` to pick a light or dark value.
+`make docs` builds all three.
 
 ## Topics
 
-### Theming
+### Essentials
 
-- ``NCTheme``
-- ``NCBrand``
-- ``NCAccentPolicy``
-- ``NCColorTokens``
-- ``NCDynamicColor``
-
-### Accessibility
-
-- ``NCAccessibilityLabel``
+- <doc:GettingStarted>
+- <doc:MigratingFromNextcloudVue>
 
 ### Identity
 
-- ``NCUsernameColor``
-- ``NCAvatarPalette``
+- ``NCAvatar``
+- ``NCUserBubble``
+- ``NCProfileCard``
 - ``NCUserStatus``
 - ``NCUserStatusBadge``
 
+### Lists and rows
+
+- ``NCListItem``
+- <doc:EmptyStates>
+
+### Navigation
+
+- ``NCNavigationItem``
+- ``NCNavigationCaption``
+- ``NCBreadcrumbs``
+- <doc:SettingsSections>
+
+### Picking people, and reacting
+
+- ``NCUserPicker``
+- ``NCReactionPicker``
+
+### Styles
+
+- ``NCButtonStyle``
+- ``NCLabelStyle``
+- ``NCProgressStyle``
+
 ### Atoms
 
-- ``NCIcon``
-- ``NCCounterBubble``
 - ``NCChip``
+- ``NCCounterBubble``
 - ``NCNoteCard``
 - ``NCHighlightText``
 - ``NCKeyboardShortcutLabel``
 - ``NCRelativeDateText``
 
-### Formatting
+### Images
+
+- ``NCAsyncImage``
+
+### Logic with no SwiftUI in it
+
+Every non-trivial view here delegates to a plain value type that is testable
+without rendering anything. The rest are curated under the component they serve.
 
 - ``NCCounterFormat``
 - ``NCHighlight``
-- ``NCRelativeDateFormatter``
+- ``NCKeyboardShortcut``
 - ``NCKeyboardShortcutGlyphs``
-- ``NCListItemText``
-
-### Lists
-
-- ``NCListItem``
-- ``NCListItemDetails``
-- <doc:EmptyStates>

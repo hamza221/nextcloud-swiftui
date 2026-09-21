@@ -1,8 +1,3 @@
-<!--
-SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
-SPDX-License-Identifier: AGPL-3.0-or-later
--->
-
 # ``NCListItem``
 
 The workhorse row: a mailbox message, a conversation, a file, a share.
@@ -29,7 +24,7 @@ List(selection: $selectedMessage) {
 
 `NCListItem` draws no selection fill, no hover fill and no focus ring. `List`
 already draws all three, tinted with the instance's brand colour through
-``NCAccentPolicy``, and it brings the parts that are easy to forget: `⌘`-click
+`NCAccentPolicy`, and it brings the parts that are easy to forget: `⌘`-click
 and `⇧`-click ranges, arrow-key traversal, the dimmed highlight when the window
 resigns key, and a row that reports itself as selectable to VoiceOver.
 
@@ -74,9 +69,9 @@ The row combines into one element. VoiceOver reads "Lorelai Taylor, about
 Friday, 2 minutes ago, 3 unread" and one swipe moves to the next message rather
 than into the row.
 
-`NCListItem` takes no ``NCAccessibilityLabel``, because its title is text and
+`NCListItem` takes no `NCAccessibilityLabel`, because its title is text and
 already conveys its meaning. The leading slot is what needs one, and
-``NCAccessibilityLabel/decorative`` is usually the honest answer: an avatar
+`NCAccessibilityLabel.decorative` is usually the honest answer: an avatar
 beside the name it depicts says nothing new.
 
 Combining makes a button in the trailing slot unreachable, so surface it the way

@@ -15,7 +15,7 @@ text without changing its leading.
 ### One element, not two
 
 A mention is one thing. The avatar is passed
-``NCAccessibilityLabel/decorative`` and the row is combined, so VoiceOver reads
+`NCAccessibilityLabel.decorative` and the row is combined, so VoiceOver reads
 the name once rather than hearing it from the avatar and then again from the
 label -- which is what makes a long recipient list unbearable. Presence rides
 along as the element's accessibility value.
