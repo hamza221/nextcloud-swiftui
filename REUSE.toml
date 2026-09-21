@@ -34,6 +34,14 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
+# A DocC catalogue page must open with its symbol heading, so it cannot carry a
+# comment header without breaking the symbol association.
+[[annotations]]
+path = "Sources/**/*.docc/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
 # Visual regression baselines are generated artefacts.
 [[annotations]]
 path = "Tests/NextcloudUISnapshotTests/__Snapshots__/**"

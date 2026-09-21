@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: Snapshots
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  visual-regression:
+    name: Visual regression
+    runs-on: macos-26
+    # For the first six months, treat a failure as an artefact to review rather
+    # than a broken build. AppKit does not render deterministically across
+    # machines and Liquid Glass is still settling; a suite that cries wolf gets
+    # ignored, and an ignored suite is worse than none.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - id: xcode
+        run: echo "version=$(cat .xcode-version)" >> "$GITHUB_OUTPUT"
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ steps.xcode.outputs.version }}
+
+      - name: Run the snapshot suite
+        run: swift test --filter NextcloudUISnapshotTests
+
+      - name: Upload failure diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-failures
+          path: |
+            **/__Snapshots__/**
+            /tmp/*.png
+          if-no-files-found: ignore

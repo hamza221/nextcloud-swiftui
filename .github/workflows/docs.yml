@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: Documentation
+
+# One directory per stable branch, mirroring the Netlify-per-branch setup the
+# Vue library already has.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build DocC
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - id: xcode
+        run: echo "version=$(cat .xcode-version)" >> "$GITHUB_OUTPUT"
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ steps.xcode.outputs.version }}
+
+      - name: Generate
+        env:
+          # The DocC plugin is gated behind this variable so that consumers of
+          # the package never have to resolve it.
+          NC_BUILD_DOCS: '1'
+        run: |
+          swift package --allow-writing-to-directory ./docs-build \
+            generate-documentation --target NextcloudUI \
+            --disable-indexing \
+            --transform-for-static-hosting \
+            --hosting-base-path nextcloud-swiftui \
+            --output-path ./docs-build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs-build
+
+  deploy:
+    name: Deploy to Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

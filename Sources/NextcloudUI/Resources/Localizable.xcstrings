@@ -1,0 +1,54 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld unread" : {
+      "comment" : "Accessibility label for an unread-count bubble.",
+      "extractionState" : "manual"
+    },
+    "Away" : {
+      "comment" : "User presence status.",
+      "extractionState" : "manual"
+    },
+    "Busy" : {
+      "comment" : "User presence status.",
+      "extractionState" : "manual"
+    },
+    "Do not disturb" : {
+      "comment" : "User presence status.",
+      "extractionState" : "manual"
+    },
+    "Error" : {
+      "comment" : "Role of an inline banner.",
+      "extractionState" : "manual"
+    },
+    "Information" : {
+      "comment" : "Role of an inline banner.",
+      "extractionState" : "manual"
+    },
+    "Invisible" : {
+      "comment" : "User presence status.",
+      "extractionState" : "manual"
+    },
+    "Offline" : {
+      "comment" : "User presence status.",
+      "extractionState" : "manual"
+    },
+    "Online" : {
+      "comment" : "User presence status.",
+      "extractionState" : "manual"
+    },
+    "Remove %@" : {
+      "comment" : "Accessibility label for the remove button on a chip. The placeholder is the chip's own text.",
+      "extractionState" : "manual"
+    },
+    "Success" : {
+      "comment" : "Role of an inline banner.",
+      "extractionState" : "manual"
+    },
+    "Warning" : {
+      "comment" : "Role of an inline banner.",
+      "extractionState" : "manual"
+    }
+  },
+  "version" : "1.0"
+}

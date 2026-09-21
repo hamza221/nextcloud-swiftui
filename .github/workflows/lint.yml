@@ -1,0 +1,77 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: Lint
+
+# Everything here runs on Ubuntu. macOS runners bill at a multiplier, and none
+# of these checks need Xcode.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    name: swift format
+    runs-on: ubuntu-latest
+    container: swift:6.2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check formatting
+        # swift format ships with the toolchain, so there is no version to drift.
+        # --strict makes any deviation a failure; formatting never reaches review.
+        run: swift format lint --strict --recursive --parallel Sources Tests Package.swift
+
+  swiftlint:
+    name: SwiftLint
+    runs-on: ubuntu-latest
+    container: ghcr.io/realm/swiftlint:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check design-system invariants
+        # Run as its own job, never as a build plugin: a plugin would slow every
+        # incremental build for every contributor.
+        run: swiftlint lint --strict --reporter github-actions-logging
+
+  discipline:
+    name: Multiplatform discipline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./Scripts/check-platform-discipline.sh
+
+  reuse:
+    name: REUSE compliance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fsfe/reuse-action@v5
+
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check workflow files
+        run: |
+          bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
+
+  generated:
+    name: Generated files are current
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Regenerate the icon catalogue
+        # The catalogue is generated from the manifest; a hand-edit would be
+        # silently overwritten by the next regeneration, so catch it here.
+        run: |
+          python3 Scripts/generate-icon-catalog.py Scripts/icon-manifest.txt
+          git diff --exit-code -- Sources/NextcloudIcons/NCSymbolCatalog.swift

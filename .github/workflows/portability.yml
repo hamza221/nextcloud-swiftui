@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: Portability
+
+# The portability canary. `platforms:` in Package.swift sets minimum deployment
+# versions -- it does not restrict which platforms SwiftPM will build for -- so
+# declaring .iOS(.v26) costs nothing and makes this job meaningful.
+#
+# The point is to turn "structurally multiplatform-clean" from an aspiration into
+# a number that someone watches.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  portable-targets:
+    name: iOS build (blocking)
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - id: xcode
+        run: echo "version=$(cat .xcode-version)" >> "$GITHUB_OUTPUT"
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ steps.xcode.outputs.version }}
+
+      - name: NextcloudDesign
+        # This target must compile for every Apple platform with no
+        # conditionals. If it stops doing so, something platform-specific has
+        # leaked into the token layer.
+        run: xcodebuild build -scheme NextcloudDesign -destination 'generic/platform=iOS' -quiet
+
+      - name: NextcloudIcons
+        run: xcodebuild build -scheme NextcloudIcons -destination 'generic/platform=iOS' -quiet
+
+  ui-target:
+    name: iOS build of NextcloudUI (reported)
+    runs-on: macos-26
+    # Not blocking: NextcloudUI is macOS-first by design and is expected to fail
+    # here for now. What matters is the trend -- a climbing error count means the
+    # "30 to 40 percent incremental cost for iOS" estimate is slipping, and the
+    # time to know that is now, not when someone starts the iOS app.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - id: xcode
+        run: echo "version=$(cat .xcode-version)" >> "$GITHUB_OUTPUT"
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ steps.xcode.outputs.version }}
+
+      - name: Build and count errors
+        id: build
+        run: |
+          set +e
+          xcodebuild build -scheme NextcloudUI -destination 'generic/platform=iOS' \
+            2>&1 | tee ios-build.log
+          set -e
+          count=$(grep -cE '^.*error: ' ios-build.log || true)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          {
+            echo "### iOS portability"
+            echo
+            echo "\`NextcloudUI\` has **$count** error(s) building for iOS."
+            echo
+            echo "This is reported, not enforced. A rising number means the"
+            echo "incremental cost of adding iOS is growing."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-build-log
+          path: ios-build.log
