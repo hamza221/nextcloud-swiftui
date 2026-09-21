@@ -59,9 +59,11 @@ Running the pipeline is a data change, not a code change. Nothing in
 
 6. **Attribution.** MDI is Apache-2.0. Add `LICENSES/Apache-2.0.txt`, and a
    `REUSE.toml` annotation covering
-   `Sources/NextcloudIcons/Resources/Media.xcassets/**` with
-   `SPDX-FileCopyrightText: Austin Andrews and Material Design Icons contributors`
-   and `SPDX-License-Identifier: Apache-2.0`. This is the step most likely to be
-   forgotten and the one most likely to matter: `reuse lint` will catch it.
+   `Sources/NextcloudIcons/Resources/Media.xcassets/**` whose
+   `SPDX-FileCopyrightText` is "Austin Andrews and Material Design Icons
+   contributors" and whose `SPDX-License-Identifier` is `Apache-2.0`. (Both tags
+   are named without their colons here on purpose: `reuse` reads a full tag
+   anywhere in a file, including inside prose.) This is the step most likely to
+   be forgotten and the one most likely to matter: `reuse lint` will catch it.
 
 [mdi]: https://github.com/Templarian/MaterialDesign
