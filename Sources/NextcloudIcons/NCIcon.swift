@@ -53,7 +53,8 @@ public struct NCIcon: View {
 
     private var dimension: CGFloat { size.dimension(theme.metrics) }
 
-    /// Whether the resource bundle carries a compiled asset catalogue.
+    /// Whether the resource bundle carries a compiled asset catalogue, and so
+    /// whether Material Design Icons render at all.
     ///
     /// SwiftPM copies `Media.xcassets` into the bundle without running `actool`,
     /// so under a plain `swift build` -- `make showcase`, `swift test` -- there is
@@ -61,11 +62,14 @@ public struct NCIcon: View {
     /// run `actool`, so an app consuming this package gets the real glyphs. The
     /// check costs one `Bundle` lookup at first use and turns a silent blank into
     /// the same fallback an ungenerated icon gets.
-    private static let hasCompiledAssetCatalog =
+    ///
+    /// Public because it is the answer to "why are my icons SF Symbols?", which
+    /// is otherwise a long afternoon.
+    public static let rendersBundledAssets =
         Bundle.module.url(forResource: "Assets", withExtension: "car") != nil
 
     private var image: Image {
-        if symbol.hasBundledAsset, Self.hasCompiledAssetCatalog {
+        if symbol.hasBundledAsset, Self.rendersBundledAssets {
             Image(symbol.asset, bundle: .module)
         } else if let systemFallback = symbol.systemFallback {
             Image(systemName: systemFallback)

@@ -33,11 +33,39 @@ All six waves are built. The API is not yet frozen.
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the full plan and what is
 deliberately deferred.
 
-## Trying the components
+## The showcase app
 
-`make showcase` (or `swift run NextcloudShowcase`) opens a window with every
-component and live knobs for its properties, plus a brand-colour field and a
-light/dark switch that re-theme everything at once.
+The package ships a macOS app that renders every component with live knobs for
+its properties. It is the fastest way to see what the library does without
+writing any code against it, and the place to check a change before opening a
+pull request.
+
+```sh
+make showcase          # or: swift run NextcloudShowcase
+```
+
+A window opens with a component list down the side. Pick one and its knobs
+appear under it. Two controls in the toolbar apply to everything at once: a
+brand-colour field, which re-themes the whole window the way a server's
+capabilities call does, and a light/dark/system switch.
+
+Three entries are worth knowing about:
+
+- **Icon gallery** browses all 91 Material Design Icons in the catalogue, with a
+  name filter and a size switch. This is the working surface for deciding which
+  icons to curate.
+- **Mail screen** is a whole screen rather than one component: a mailbox
+  sidebar, a message list and a message header, built from `NCNavigationItem`,
+  `NCListItem`, `NCAvatar` and `NCUserBubble` together. Composition problems show
+  up here that no single-component demo finds.
+- **Colour tokens** shows every token as a swatch, which is the quickest way to
+  see what a brand colour does to the derived palette.
+
+**The icons render as SF Symbols under `swift run`.** SwiftPM copies the asset
+catalogue into the bundle without compiling it, so there is no `Assets.car` and
+`NCIcon` falls back. Open the package in Xcode and run the `NextcloudShowcase`
+scheme to see the real Material Design Icons; Xcode runs `actool`. `NCIcon`
+exposes `NCIcon.rendersBundledAssets` if you need to check this at runtime.
 
 ## Requirements
 

@@ -102,6 +102,11 @@ SwiftPM warns about and ships nowhere.
 6. **Previews**, named `Component / scenario`, covering default, long content,
    empty, dark, increased contrast and RTL. RTL matters for Nextcloud
    specifically.
+7. **A demo in the showcase.** Add a case to `Demo` in
+   `Sources/NextcloudShowcase/Showcase.swift` and a `…Demo` view with a knob per
+   property that a caller can set. A component with no demo is one nobody looks
+   at before shipping it. Run `make showcase` and click through it; a preview
+   that renders in the canvas can still be wrong in a running window.
 
    The increased-contrast one is `traits: .ncIncreasedContrast`, always, with no
    brand spelled out at the call site. `\.colorSchemeContrast` is get-only, so no

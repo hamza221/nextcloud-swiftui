@@ -90,6 +90,8 @@ private struct ShowcaseWindow: View {
         case .progressStyle: ProgressStyleDemo()
         case .userPicker: UserPickerDemo()
         case .reactionPicker: ReactionPickerDemo()
+        case .asyncImage: AsyncImageDemo()
+        case .icons: IconGalleryDemo()
         case .tokens: TokenDemo()
         case nil: Text("Pick a component.")
         }
@@ -116,6 +118,8 @@ private enum Demo: String, CaseIterable, Identifiable {
     case progressStyle
     case userPicker
     case reactionPicker
+    case asyncImage
+    case icons
     case tokens
 
     var id: Self { self }
@@ -141,6 +145,8 @@ private enum Demo: String, CaseIterable, Identifiable {
         case .progressStyle: "Progress style"
         case .userPicker: "User picker"
         case .reactionPicker: "Reaction picker"
+        case .asyncImage: "Async image"
+        case .icons: "Icon gallery"
         case .tokens: "Colour tokens"
         }
     }
@@ -767,6 +773,115 @@ private struct ReactionPickerDemo: View {
         } controls: {
             Stepper("Visible before overflow: \(visibleLimit)", value: $visibleLimit, in: 1...12)
             LabeledContent("Total", value: "\(summary.total)")
+        }
+    }
+}
+
+// MARK: - Async image
+
+private struct AsyncImageDemo: View {
+    @State private var delay = 1.0
+    @State private var fails = false
+    /// Changing this re-runs the loader, which is otherwise invisible once the
+    /// first load has resolved and the cache has it.
+    @State private var attempt = 0
+
+    var body: some View {
+        // The loader is `@Sendable`, so it cannot reach back into `@State` on
+        // the main actor. The knobs are read here and captured by value.
+        let seconds = delay
+        let shouldFail = fails
+
+        return Stage {
+            NCAsyncImage(
+                identity: "demo-\(attempt)",
+                label: .text(LocalizedStringResource("A generated swatch"))
+            ) {
+                try await Task.sleep(for: .seconds(seconds))
+                if shouldFail { throw CancellationError() }
+                return Image(systemName: "photo.artframe")
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(width: 120, height: 120)
+        } controls: {
+            Slider(value: $delay, in: 0...5) { Text(verbatim: "Delay") }
+            LabeledContent("Delay", value: delay.formatted(.number.precision(.fractionLength(1))) + " s")
+            Toggle("Loader throws", isOn: $fails)
+                .help("A failed load shows the placeholder, which for an avatar is the initials.")
+            Button("Load again") { attempt += 1 }
+        }
+    }
+}
+
+// MARK: - Icon gallery
+
+/// Every symbol in the catalogue, which is also the working surface for the
+/// roadmap's open question about curating the set.
+private struct IconGalleryDemo: View {
+    @Environment(\.ncTheme) private var theme
+
+    @State private var query = ""
+    @State private var size = NCIcon.Size.large
+
+    private var matches: [NCSymbol] {
+        let needle = query.trimmingCharacters(in: .whitespaces).lowercased()
+        guard !needle.isEmpty else { return NCSymbol.catalogue }
+        return NCSymbol.catalogue.filter { $0.asset.contains(needle) }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: theme.metrics.spacing.comfortable) {
+            if !NCIcon.rendersBundledAssets {
+                NCNoteCard(.warning, title: "Showing SF Symbols, not Material Design Icons") {
+                    Text(
+                        verbatim: """
+                            SwiftPM copies the asset catalogue without compiling it, so there is no \
+                            Assets.car under `swift run`. Open the package in Xcode to see the real \
+                            glyphs. The nine symbols with no system equivalent show a dashed \
+                            question mark here.
+                            """
+                    )
+                }
+            }
+
+            HStack {
+                TextField("Filter", text: $query)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 220)
+                Picker("Size", selection: $size) {
+                    ForEach(Array(NCIcon.Size.allCases), id: \.self) { Text(String(describing: $0)) }
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                Spacer()
+                Text(verbatim: "\(matches.count) of \(NCSymbol.catalogue.count)")
+                    .foregroundStyle(.secondary)
+            }
+
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 104), spacing: 8)], spacing: 8) {
+                    ForEach(matches, id: \.asset) { symbol in
+                        VStack(spacing: theme.metrics.spacing.tight) {
+                            NCIcon(symbol, label: .decorative, size: size)
+                                .frame(height: 24)
+                            Text(verbatim: symbol.asset)
+                                .font(.caption2)
+                                .lineLimit(2, reservesSpace: true)
+                                .multilineTextAlignment(.center)
+                                .foregroundStyle(.secondary)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, theme.metrics.spacing.standard)
+                        .background(.quinary, in: RoundedRectangle(cornerRadius: theme.metrics.radius.element))
+                        // The grid is decorative in bulk; the name beside each
+                        // glyph is what a reader actually needs spoken.
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(Text(verbatim: symbol.asset))
+                    }
+                }
+            }
+            .frame(minHeight: 320)
         }
     }
 }

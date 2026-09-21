@@ -149,6 +149,23 @@ NCAvatar(displayName: name, label: .content(name)) // runtime data, never a tabl
 `.decorative` is correct far more often than it looks, because a row that reads
 as one element should not also announce its icon.
 
+## See it running before you write anything
+
+The package ships a macOS app that renders every component with live knobs for
+its properties, a brand-colour field and a light/dark switch:
+
+```sh
+make showcase          # or: swift run NextcloudShowcase
+```
+
+Besides one entry per component it has an icon gallery for all 91 Material
+Design Icons, and a Mail screen that composes `NCNavigationItem`, `NCListItem`,
+`NCAvatar` and `NCUserBubble` into one working screen.
+
+Icons render as SF Symbols under `swift run`, because SwiftPM copies the asset
+catalogue without compiling it. Run the `NextcloudShowcase` scheme from Xcode to
+see the real glyphs.
+
 ## Two things that are deliberately not components
 
 Some of `@nextcloud/vue` is better served by a system view than by a wrapper, and

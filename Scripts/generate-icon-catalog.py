@@ -134,6 +134,15 @@ def main() -> int:
             lines.append(decl)
         lines.append("")
 
+    # The whole set, in manifest order, so that a browser -- the showcase's icon
+    # gallery, a curation review -- can enumerate what ships. Ninety-one static
+    # properties are not iterable on their own.
+    lines.append("    /// Every symbol in the catalogue, in manifest order.")
+    lines.append("    public static let catalogue: [NCSymbol] = [")
+    for name in names:
+        lines.append(f"        .{camel(name)},")
+    lines.append("    ]")
+
     covered = sum(1 for n in names if n in FALLBACKS)
     body = "\n".join(lines).rstrip() + "\n}\n"
     OUTPUT.write_text(HEADER + body, encoding="utf-8")
