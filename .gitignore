@@ -9,3 +9,4 @@ xcuserdata/
 docs-build/
 Showcase/**/xcuserdata/
 *.dmg
+.mdi-cache/

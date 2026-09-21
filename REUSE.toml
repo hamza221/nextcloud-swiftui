@@ -26,7 +26,6 @@ SPDX-License-Identifier = "CC0-1.0"
 # comment header.
 [[annotations]]
 path = [
-    "Sources/**/*.xcassets/**",
     "Sources/**/*.xcstrings",
     "Showcase/**/*.pbxproj",
     "Showcase/**/*.plist",
@@ -36,6 +35,15 @@ path = [
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+# Every symbolset under here is generated from a Material Design Icons SVG by
+# Tools/mdi-to-symbolset/mdi-to-symbolset.py. The artwork stays MDI's, under its
+# own licence; only the placement into Apple's symbol template is ours.
+[[annotations]]
+path = "Sources/NextcloudIcons/Resources/Media.xcassets/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Austin Andrews and Material Design Icons contributors"
+SPDX-License-Identifier = "Apache-2.0"
 
 # A DocC catalogue page must open with its symbol heading, so it cannot carry a
 # comment header without breaking the symbol association.
