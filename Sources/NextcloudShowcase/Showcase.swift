@@ -85,6 +85,11 @@ private struct ShowcaseWindow: View {
         case .navigationItem: NavigationItemDemo()
         case .breadcrumbs: BreadcrumbsDemo()
         case .mailScreen: MailScreenDemo()
+        case .buttonStyle: ButtonStyleDemo()
+        case .labelStyle: LabelStyleDemo()
+        case .progressStyle: ProgressStyleDemo()
+        case .userPicker: UserPickerDemo()
+        case .reactionPicker: ReactionPickerDemo()
         case .tokens: TokenDemo()
         case nil: Text("Pick a component.")
         }
@@ -106,6 +111,11 @@ private enum Demo: String, CaseIterable, Identifiable {
     case navigationItem
     case breadcrumbs
     case mailScreen
+    case buttonStyle
+    case labelStyle
+    case progressStyle
+    case userPicker
+    case reactionPicker
     case tokens
 
     var id: Self { self }
@@ -126,6 +136,11 @@ private enum Demo: String, CaseIterable, Identifiable {
         case .navigationItem: "Navigation item"
         case .breadcrumbs: "Breadcrumbs"
         case .mailScreen: "Mail screen"
+        case .buttonStyle: "Button style"
+        case .labelStyle: "Label style"
+        case .progressStyle: "Progress style"
+        case .userPicker: "User picker"
+        case .reactionPicker: "Reaction picker"
         case .tokens: "Colour tokens"
         }
     }
@@ -645,5 +660,113 @@ private struct MailScreenDemo: View {
         .frame(height: 380)
         .background(.quinary, in: RoundedRectangle(cornerRadius: theme.metrics.radius.container))
         .onChange(of: mailbox) { selected = nil }
+    }
+}
+
+// MARK: - Wave 5 demos
+
+private struct ButtonStyleDemo: View {
+    @State private var role = NCButtonStyle.Role.primary
+    @State private var title = "Send"
+    @State private var enabled = true
+
+    var body: some View {
+        Stage {
+            Button(action: {}) {
+                Label(title, systemImage: "paperplane")
+            }
+            .buttonStyle(NCButtonStyle(role: role))
+            .disabled(!enabled)
+        } controls: {
+            Picker("Role", selection: $role) {
+                ForEach(Array(NCButtonStyle.Role.allCases), id: \.self) { Text(String(describing: $0)) }
+            }
+            TextField("Title", text: $title)
+            Toggle("Enabled", isOn: $enabled)
+        }
+    }
+}
+
+private struct LabelStyleDemo: View {
+    @State private var layout = NCLabelStyle.Layout.standard
+
+    var body: some View {
+        Stage {
+            Label("Move to archive", systemImage: "archivebox")
+                .labelStyle(NCLabelStyle(layout: layout))
+                .font(.title3)
+        } controls: {
+            Picker("Layout", selection: $layout) {
+                ForEach(Array(NCLabelStyle.Layout.allCases), id: \.self) { Text(String(describing: $0)) }
+            }
+            .pickerStyle(.inline)
+        }
+    }
+}
+
+private struct ProgressStyleDemo: View {
+    @State private var progress = 0.4
+    @State private var role = NCProgressStyle.Role.normal
+
+    var body: some View {
+        Stage {
+            ProgressView(value: progress) {
+                Text(verbatim: "Uploading Quarterly report.odt")
+            }
+            .progressViewStyle(NCProgressStyle(role: role))
+            .padding(.horizontal, 32)
+        } controls: {
+            Slider(value: $progress, in: 0...1) { Text(verbatim: "Progress") }
+            Picker("Role", selection: $role) {
+                ForEach(Array(NCProgressStyle.Role.allCases), id: \.self) { Text(String(describing: $0)) }
+            }
+        }
+    }
+}
+
+private struct UserPickerDemo: View {
+    @Environment(\.ncTheme) private var theme
+    @State private var selection: Set<String> = ["rory"]
+
+    private let candidates = [
+        NCUserCandidate(
+            id: "lorelai", displayName: "Lorelai Gilmore", secondary: "lorelai@example.org", status: .online),
+        NCUserCandidate(id: "rory", displayName: "Rory Gilmore", secondary: "rory@example.org", status: .away),
+        NCUserCandidate(id: "luke", displayName: "Luke Danes", secondary: "luke@example.org", status: .doNotDisturb),
+        NCUserCandidate(id: "sookie", displayName: "Sookie St. James", secondary: "sookie@example.org"),
+        NCUserCandidate(
+            id: "michel", displayName: "Michel Gérard", secondary: "michel@example.org", status: .invisible),
+    ]
+
+    var body: some View {
+        Stage {
+            NCUserPicker(candidates: candidates, selection: $selection)
+                .frame(height: 260)
+                .padding(theme.metrics.spacing.standard)
+        } controls: {
+            LabeledContent("Selected", value: selection.sorted().joined(separator: ", "))
+            Button("Clear selection") { selection.removeAll() }
+                .help("Type an unaccented \"gerard\" to check the diacritic folding.")
+        }
+    }
+}
+
+private struct ReactionPickerDemo: View {
+    @State private var summary = NCReactionSummary([
+        NCReaction(emoji: "👍", count: 4, isMine: true),
+        NCReaction(emoji: "🎉", count: 2),
+        NCReaction(emoji: "❤️", count: 1),
+    ])
+    @State private var visibleLimit = 6
+
+    var body: some View {
+        Stage {
+            NCReactionPicker(summary, visibleLimit: visibleLimit) { emoji in
+                summary = summary.toggling(emoji)
+            }
+        } controls: {
+            Stepper("Visible before overflow: \(visibleLimit)", value: $visibleLimit, in: 1...12)
+            LabeledContent("Total", value: "\(summary.total)")
+        }
     }
 }
