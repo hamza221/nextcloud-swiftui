@@ -58,3 +58,10 @@ no component ever needs to read `\.colorScheme` to pick a light or dark value.
 - ``NCHighlight``
 - ``NCRelativeDateFormatter``
 - ``NCKeyboardShortcutGlyphs``
+- ``NCListItemText``
+
+### Lists
+
+- ``NCListItem``
+- ``NCListItemDetails``
+- <doc:EmptyStates>

@@ -73,6 +73,14 @@ let package = Package(
         .target(
             name: "NextcloudUI",
             dependencies: ["NextcloudDesign", "NextcloudPlatform", "NextcloudIcons"],
+            // CONTRIBUTING puts each component's DocC extension beside its
+            // source. SwiftPM has no glob, so every one has to be named here or
+            // the build warns that it is unhandled. Add a line when you add a
+            // component.
+            exclude: [
+                "Components/ListItem/NCListItem.md",
+                "Components/ListItemDetails/NCListItemDetails.md",
+            ],
             resources: [.process("Resources")],
             swiftSettings: sharedSwiftSettings
         ),
