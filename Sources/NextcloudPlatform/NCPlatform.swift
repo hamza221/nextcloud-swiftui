@@ -19,9 +19,10 @@
 /// - ``NCPointerStyle`` -- hover cursors
 /// - ``NCPlatformMetrics`` -- what the platform can and cannot do
 /// - ``NCOpenURL`` -- opening a URL outside a view
+/// - ``NCEmojiPalette`` -- the system emoji picker
 ///
 /// and later `NCTextViewBridge`, which arrives with `NCRichContenteditable` in
-/// v1.1. A seventh abstraction is a design review, not a pull request: each one
+/// v1.1. An eighth abstraction is a design review, not a pull request: each one
 /// added here is a place iOS support can diverge.
 public enum NCPlatform {
     /// The platform this build is targeting, for diagnostics and for the
