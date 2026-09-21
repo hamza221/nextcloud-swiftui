@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-public import Foundation
+import Foundation
 
 nonisolated extension LocalizedStringResource {
     /// Resolves a string against *this package's* bundle.

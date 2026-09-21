@@ -23,6 +23,9 @@ public nonisolated struct NCKeyboardShortcut: Hashable, Sendable {
         self.modifiers = modifiers
     }
 
+    // Both inits match a literal like "k"; this one steps aside so the
+    // Character overload wins and named keys still reach KeyEquivalent.
+    @_disfavoredOverload
     public init(_ key: KeyEquivalent, modifiers: EventModifiers = .command) {
         self.init(key.character, modifiers: modifiers)
     }
@@ -73,7 +76,8 @@ public nonisolated enum NCKeyboardShortcutGlyphs {
         case "\r": "\u{21A9}"  // return
         case "\t": "\u{21E5}"  // tab
         case " ": "\u{2423}"  // space
-        case "\u{7F}": "\u{232B}"  // delete
+        case "\u{8}", "\u{7F}": "\u{232B}"  // delete: KeyEquivalent carries U+0008
+        case "\u{F728}": "\u{2326}"  // forward delete
         case "\u{1B}": "\u{238B}"  // escape
         case "\u{F700}": "\u{2191}"  // up arrow
         case "\u{F701}": "\u{2193}"  // down arrow

@@ -3,40 +3,30 @@
 
 #if DEBUG
 
-    import SwiftUI
+import SwiftUI
 
-    #Preview("UserStatusBadge / all statuses", traits: .ncTheme) {
-        // Each status must be distinguishable by shape alone, not only by
-        // colour: view this preview in greyscale before changing it.
-        HStack(spacing: 16) {
-            ForEach(NCUserStatus.allCases, id: \.self) { status in
-                VStack {
-                    NCUserStatusBadge(status)
-                    Text(status.accessibilityLabel).font(.caption2)
-                }
-            }
-        }
-        .padding()
-    }
-
-    #Preview("UserStatusBadge / dark", traits: .ncTheme) {
-        HStack(spacing: 16) {
-            ForEach(NCUserStatus.allCases, id: \.self) { status in
+#Preview("UserStatusBadge / all statuses", traits: .ncTheme) {
+    // Each status must be distinguishable by shape alone, not only by
+    // colour: view this preview in greyscale before changing it.
+    HStack(spacing: 16) {
+        ForEach(NCUserStatus.allCases, id: \.self) { status in
+            VStack {
                 NCUserStatusBadge(status)
+                Text(status.accessibilityLabel).font(.caption2)
             }
         }
-        .padding()
-        .preferredColorScheme(.dark)
     }
+    .padding()
+}
 
-    #Preview("UserStatusBadge / increased contrast", traits: .ncTheme) {
-        HStack(spacing: 16) {
-            ForEach(NCUserStatus.allCases, id: \.self) { status in
-                NCUserStatusBadge(status)
-            }
+#Preview("UserStatusBadge / dark", traits: .ncTheme) {
+    HStack(spacing: 16) {
+        ForEach(NCUserStatus.allCases, id: \.self) { status in
+            NCUserStatusBadge(status)
         }
-        .padding()
-        .environment(\.colorSchemeContrast, .increased)
     }
+    .padding()
+    .preferredColorScheme(.dark)
+}
 
 #endif

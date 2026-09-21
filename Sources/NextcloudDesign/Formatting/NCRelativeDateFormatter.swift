@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 public import Foundation
-public import SwiftUI
 
 /// Relative time in Nextcloud's phrasing.
 ///

@@ -36,23 +36,23 @@ private struct NCPointerStyleModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         #if canImport(AppKit)
-            content.pointerStyle(style.resolved)
+        content.pointerStyle(style.resolved)
         #else
-            content
+        content
         #endif
     }
 }
 
 #if canImport(AppKit)
-    extension NCPointerStyle {
-        fileprivate var resolved: PointerStyle {
-            switch self {
-            case .link: .link
-            case .text: .horizontalText
-            case .columnResize: .columnResize
-            case .grabIdle: .grabIdle
-            case .grabActive: .grabActive
-            }
+extension NCPointerStyle {
+    fileprivate var resolved: PointerStyle {
+        switch self {
+        case .link: .link
+        case .text: .horizontalText
+        case .columnResize: .columnResize
+        case .grabIdle: .grabIdle
+        case .grabActive: .grabActive
         }
     }
+}
 #endif

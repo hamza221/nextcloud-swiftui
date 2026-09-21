@@ -25,7 +25,7 @@ struct NCTokenTests {
 
     @Test("falls back to the standard value when no increased-contrast value exists")
     func increasedContrastFallback() {
-        let token = NCDynamicColor(light: .white, dark: .black)
+        let token = NCDynamicColor(light: Color.white, dark: Color.black)
         #expect(token.color(for: .light, contrast: .increased) == token.light)
         #expect(token.color(for: .dark, contrast: .increased) == token.dark)
     }

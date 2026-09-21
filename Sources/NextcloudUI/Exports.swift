@@ -12,7 +12,6 @@
 /// used by the standard library itself. The alternative taxes every consumer
 /// file permanently.
 @_exported public import NextcloudDesign
-
 /// The icon catalogue, for the same reason: a component that takes an
 /// ``NCSymbol`` is unusable without it.
 @_exported public import NextcloudIcons

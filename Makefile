@@ -22,6 +22,10 @@ build: ## Build all targets
 test: ## Run the unit tests
 	swift test
 
+.PHONY: showcase
+showcase: ## Run the interactive component showcase
+	swift run NextcloudShowcase
+
 .PHONY: format
 format: ## Apply formatting in place
 	swift format --in-place --recursive --parallel Sources Tests Package.swift

@@ -28,10 +28,16 @@ Early. The foundation is in place; most components are not yet built.
 | --- | --- |
 | **Built** | Design tokens, theme, brand derivation, contrast maths, `usernameToColor`, the platform layer, the icon catalogue, wave 1 atoms |
 | **Next** | Wave 2 identity (`NCAvatar`, `NCAsyncImage`), wave 3 lists (`NCListItem`) |
-| **Not started** | Navigation, input, the showcase app, DocC articles |
+| **Not started** | Navigation, input, DocC articles |
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the full plan and what is
 deliberately deferred.
+
+## Trying the components
+
+`make showcase` (or `swift run NextcloudShowcase`) opens a window with every
+component and live knobs for its properties, plus a brand-colour field and a
+light/dark switch that re-theme everything at once.
 
 ## Requirements
 

@@ -17,9 +17,9 @@ public enum NCPlatformMetrics {
     /// visible equivalent.
     public static var pointerIsPrimaryInput: Bool {
         #if canImport(AppKit)
-            true
+        true
         #else
-            false
+        false
         #endif
     }
 
@@ -30,18 +30,18 @@ public enum NCPlatformMetrics {
     /// platform wants 34.
     public static var minimumHitTarget: CGFloat {
         #if canImport(AppKit)
-            20
+        20
         #else
-            44
+        44
         #endif
     }
 
     /// The standard leading inset of a list row's content.
     public static var listRowInset: CGFloat {
         #if canImport(AppKit)
-            8
+        8
         #else
-            16
+        16
         #endif
     }
 }

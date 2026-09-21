@@ -47,6 +47,9 @@ struct NCCounterFormatTests {
         // as "1234".
         let german = NCCounterFormat.text(for: 1234, limit: 0, locale: Locale(identifier: "de_DE"))
         #expect(german.contains("1") && german.contains("234"))
-        #expect(NCCounterFormat.text(for: 1234, limit: 0, locale: posix) == "1,234")
+        let american = Locale(identifier: "en_US")
+        #expect(NCCounterFormat.text(for: 1234, limit: 0, locale: american) == "1,234")
+        // en_US_POSIX has no grouping separator at all.
+        #expect(NCCounterFormat.text(for: 1234, limit: 0, locale: posix) == "1234")
     }
 }

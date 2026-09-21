@@ -1,12 +1,12 @@
 // SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-internal import Foundation
+public import Foundation
 
 #if canImport(AppKit)
-    internal import AppKit
+internal import AppKit
 #elseif canImport(UIKit)
-    internal import UIKit
+internal import UIKit
 #endif
 
 /// Opening a URL from outside a view.
@@ -24,12 +24,12 @@ public enum NCOpenURL {
     @discardableResult
     public static func open(_ url: URL) -> Bool {
         #if canImport(AppKit)
-            return NSWorkspace.shared.open(url)
+        return NSWorkspace.shared.open(url)
         #elseif canImport(UIKit)
-            UIApplication.shared.open(url)
-            return true
+        UIApplication.shared.open(url)
+        return true
         #else
-            return false
+        return false
         #endif
     }
 }

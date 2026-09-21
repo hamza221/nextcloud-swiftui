@@ -46,9 +46,11 @@ Wave 0 was a hard serial dependency — everything reads it.
 
 ## Not yet built from the plan
 
-- **The showcase app.** A three-target catalogue (`NextcloudUIShowcaseKit` with
-  the knob infrastructure, a thin `@main` app, UI tests) shipped as a notarized
-  `.dmg` so designers can browse components without Xcode. Live prop editing uses
+- **The shipped showcase app.** `NextcloudShowcase` exists as one file with an
+  inline `@State` knob per control, run with `make showcase`. Still to build: the
+  three-target split (`NextcloudUIShowcaseKit` with shared knob infrastructure, a
+  thin `@main` app, UI tests) and a notarized `.dmg` so designers can browse
+  components without a toolchain. Live prop editing uses
   explicit typed knobs over `Binding`'s dynamic member subscript, not reflection:
   `Mirror` gives you `(label, value)` and no setter, and more importantly it
   reports that a property is a `Double` rather than that it is a corner radius in

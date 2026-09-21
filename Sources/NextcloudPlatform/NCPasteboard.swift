@@ -4,9 +4,9 @@
 internal import Foundation
 
 #if canImport(AppKit)
-    internal import AppKit
+internal import AppKit
 #elseif canImport(UIKit)
-    internal import UIKit
+internal import UIKit
 #endif
 
 /// Copying text to the system pasteboard.
@@ -18,22 +18,22 @@ public enum NCPasteboard {
     /// Replaces the pasteboard contents with a plain string.
     public static func copy(_ string: String) {
         #if canImport(AppKit)
-            let pasteboard = NSPasteboard.general
-            pasteboard.clearContents()
-            pasteboard.setString(string, forType: .string)
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(string, forType: .string)
         #elseif canImport(UIKit)
-            UIPasteboard.general.string = string
+        UIPasteboard.general.string = string
         #endif
     }
 
     /// The plain string currently on the pasteboard, if there is one.
     public static func string() -> String? {
         #if canImport(AppKit)
-            return NSPasteboard.general.string(forType: .string)
+        return NSPasteboard.general.string(forType: .string)
         #elseif canImport(UIKit)
-            return UIPasteboard.general.string
+        return UIPasteboard.general.string
         #else
-            return nil
+        return nil
         #endif
     }
 }

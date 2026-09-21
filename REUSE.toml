@@ -14,6 +14,9 @@ path = [
     ".xcode-version",
     ".swift-format",
     "Package.resolved",
+    # One icon name per line: the generator reads every non-blank line as a
+    # name, so a comment header would become a bogus icon.
+    "Scripts/icon-manifest.txt",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"

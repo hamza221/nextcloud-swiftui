@@ -1,11 +1,10 @@
 // SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-public import SwiftUI
-
 internal import CoreGraphics
 internal import Foundation
 internal import ImageIO
+public import SwiftUI
 
 /// Turns image bytes into a SwiftUI `Image`.
 ///

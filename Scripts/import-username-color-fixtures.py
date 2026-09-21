@@ -42,12 +42,12 @@ HEADER = """// SPDX-FileCopyrightText: 2020-2026 Nextcloud GmbH and Nextcloud co
 //
 // Regenerate with: Scripts/import-username-color-fixtures.py
 
-internal struct NCUsernameColorVector: Sendable {
+internal nonisolated struct NCUsernameColorVector: Sendable {
     let username: String
     let hex: String
 }
 
-internal enum NCUsernameColorFixtures {
+internal nonisolated enum NCUsernameColorFixtures {
     internal static let all: [NCUsernameColorVector] = [
 """
 
