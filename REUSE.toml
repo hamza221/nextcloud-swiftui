@@ -46,13 +46,11 @@ SPDX-FileCopyrightText = "Austin Andrews and Material Design Icons contributors"
 SPDX-License-Identifier = "Apache-2.0"
 
 # A DocC catalogue page must open with its symbol heading, so it cannot carry a
-# comment header without breaking the symbol association. The same applies to a
-# component's DocC extension, which sits beside the component it documents.
+# comment header without breaking the symbol association. Component extensions
+# live in the catalogue for the same reason they are built at all: DocC reads
+# nothing outside it.
 [[annotations]]
-path = [
-    "Sources/**/*.docc/**",
-    "Sources/NextcloudUI/Components/**/*.md",
-]
+path = "Sources/**/*.docc/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"

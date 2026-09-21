@@ -71,8 +71,13 @@ A component is not done until all of this exists:
 Sources/NextcloudUI/Components/Avatar/
     NCAvatar.swift            # one public view per file
     NCAvatar+Previews.swift   # #if DEBUG
+Sources/NextcloudUI/NextcloudUI.docc/
     NCAvatar.md               # DocC extension
 ```
+
+The extension goes in the catalogue, not beside the source. DocC reads nothing
+outside a `.docc` directory, so an extension next to its component is a file
+SwiftPM warns about and ships nowhere.
 
 1. **Extract the logic.** Every non-trivial view delegates to a plain struct or
    enum — `NCCounterFormat`, `NCHighlight` — that is fully testable with no

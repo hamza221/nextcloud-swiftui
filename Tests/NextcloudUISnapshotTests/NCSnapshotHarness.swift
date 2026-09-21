@@ -33,6 +33,7 @@ func assertNCSnapshot(
     height: CGFloat,
     scheme: ColorScheme = .light,
     layoutDirection: LayoutDirection = .leftToRight,
+    theme: NCTheme = .nextcloud,
     fileID: StaticString = #fileID,
     filePath: StaticString = #filePath,
     testName: String = #function,
@@ -42,7 +43,7 @@ func assertNCSnapshot(
     let hosted = NSHostingView(
         rootView:
             view
-            .ncTheme(.nextcloud)
+            .ncTheme(theme)
             // Both, and the second one is the one that works. An `NSHostingView`
             // with no window inherits the *process* appearance, and
             // `.preferredColorScheme` only asks a window for one -- so on a

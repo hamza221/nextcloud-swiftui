@@ -22,9 +22,6 @@ import Testing
 @Suite("Input snapshots", .serialized)
 @MainActor
 struct NCInputSnapshotTests {
-    private let precision: Float = 0.99
-    private let perceptualPrecision: Float = 0.98
-
     private func assertInput(
         _ view: some View,
         named name: String,
@@ -33,25 +30,25 @@ struct NCInputSnapshotTests {
         scheme: ColorScheme = .light,
         theme: NCTheme = .nextcloud,
         // Without this the baseline is named after `assertInput`, so every test
-        // passing `named: "default"` overwrites the same file.
-        testName: String = #function
+        // passing `named: "default"` overwrites one file.
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        testName: String = #function,
+        line: UInt = #line,
+        column: UInt = #column
     ) {
-        let hosted = NSHostingView(
-            rootView:
-                view
-                .ncTheme(theme)
-                .preferredColorScheme(scheme)
-                .frame(width: width, height: height)
-                .background(Color.white)
-        )
-        hosted.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        hosted.layoutSubtreeIfNeeded()
-
-        assertSnapshot(
-            of: hosted,
-            as: .image(precision: precision, perceptualPrecision: perceptualPrecision),
+        assertNCSnapshot(
+            view,
             named: name,
-            testName: testName
+            width: width,
+            height: height,
+            scheme: scheme,
+            theme: theme,
+            fileID: fileID,
+            filePath: filePath,
+            testName: testName,
+            line: line,
+            column: column
         )
     }
 
