@@ -1,54 +1,62 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "%lld unread" : {
-      "comment" : "Accessibility label for an unread-count bubble.",
-      "extractionState" : "manual"
+  "sourceLanguage": "en",
+  "strings": {
+    "%lld unread": {
+      "comment": "Accessibility label for an unread-count bubble.",
+      "extractionState": "manual"
     },
-    "Away" : {
-      "comment" : "User presence status.",
-      "extractionState" : "manual"
+    "Away": {
+      "comment": "User presence status.",
+      "extractionState": "manual"
     },
-    "Busy" : {
-      "comment" : "User presence status.",
-      "extractionState" : "manual"
+    "Busy": {
+      "comment": "User presence status.",
+      "extractionState": "manual"
     },
-    "Do not disturb" : {
-      "comment" : "User presence status.",
-      "extractionState" : "manual"
+    "Do not disturb": {
+      "comment": "User presence status.",
+      "extractionState": "manual"
     },
-    "Error" : {
-      "comment" : "Role of an inline banner.",
-      "extractionState" : "manual"
+    "Error": {
+      "comment": "Role of an inline banner.",
+      "extractionState": "manual"
     },
-    "Information" : {
-      "comment" : "Role of an inline banner.",
-      "extractionState" : "manual"
+    "Information": {
+      "comment": "Role of an inline banner.",
+      "extractionState": "manual"
     },
-    "Invisible" : {
-      "comment" : "User presence status.",
-      "extractionState" : "manual"
+    "Invisible": {
+      "comment": "User presence status.",
+      "extractionState": "manual"
     },
-    "Offline" : {
-      "comment" : "User presence status.",
-      "extractionState" : "manual"
+    "More actions": {
+      "comment": "Accessibility label for the trailing actions menu on a sidebar navigation row.",
+      "extractionState": "manual"
     },
-    "Online" : {
-      "comment" : "User presence status.",
-      "extractionState" : "manual"
+    "Offline": {
+      "comment": "User presence status.",
+      "extractionState": "manual"
     },
-    "Remove %@" : {
-      "comment" : "Accessibility label for the remove button on a chip. The placeholder is the chip's own text.",
-      "extractionState" : "manual"
+    "Online": {
+      "comment": "User presence status.",
+      "extractionState": "manual"
     },
-    "Success" : {
-      "comment" : "Role of an inline banner.",
-      "extractionState" : "manual"
+    "Remove %@": {
+      "comment": "Accessibility label for the remove button on a chip. The placeholder is the chip's own text.",
+      "extractionState": "manual"
     },
-    "Warning" : {
-      "comment" : "Role of an inline banner.",
-      "extractionState" : "manual"
+    "Show hidden path components": {
+      "comment": "Accessibility label for the overflow menu that holds the breadcrumb segments which did not fit.",
+      "extractionState": "manual"
+    },
+    "Success": {
+      "comment": "Role of an inline banner.",
+      "extractionState": "manual"
+    },
+    "Warning": {
+      "comment": "Role of an inline banner.",
+      "extractionState": "manual"
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

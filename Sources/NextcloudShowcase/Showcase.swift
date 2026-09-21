@@ -78,6 +78,13 @@ private struct ShowcaseWindow: View {
         case .highlight: HighlightDemo()
         case .keyboardShortcut: KeyboardShortcutDemo()
         case .relativeDate: RelativeDateDemo()
+        case .avatar: AvatarDemo()
+        case .userBubble: UserBubbleDemo()
+        case .profileCard: ProfileCardDemo()
+        case .listItem: ListItemDemo()
+        case .navigationItem: NavigationItemDemo()
+        case .breadcrumbs: BreadcrumbsDemo()
+        case .mailScreen: MailScreenDemo()
         case .tokens: TokenDemo()
         case nil: Text("Pick a component.")
         }
@@ -92,6 +99,13 @@ private enum Demo: String, CaseIterable, Identifiable {
     case highlight
     case keyboardShortcut
     case relativeDate
+    case avatar
+    case userBubble
+    case profileCard
+    case listItem
+    case navigationItem
+    case breadcrumbs
+    case mailScreen
     case tokens
 
     var id: Self { self }
@@ -105,6 +119,13 @@ private enum Demo: String, CaseIterable, Identifiable {
         case .highlight: "Search highlight"
         case .keyboardShortcut: "Keyboard shortcut"
         case .relativeDate: "Relative date"
+        case .avatar: "Avatar"
+        case .userBubble: "User bubble"
+        case .profileCard: "Profile card"
+        case .listItem: "List item"
+        case .navigationItem: "Navigation item"
+        case .breadcrumbs: "Breadcrumbs"
+        case .mailScreen: "Mail screen"
         case .tokens: "Colour tokens"
         }
     }
@@ -366,5 +387,263 @@ private struct TokenDemo: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - Wave 2 demos
+
+private struct AvatarDemo: View {
+    @State private var displayName = "Lorelai Taylor"
+    @State private var user = "lorelai"
+    @State private var size = NCAvatar.Size.large
+    @State private var showsStatus = true
+    @State private var status = NCUserStatus.online
+
+    var body: some View {
+        Stage {
+            NCAvatar(
+                displayName: displayName,
+                user: user.isEmpty ? nil : user,
+                size: size,
+                status: showsStatus ? status : nil
+            )
+        } controls: {
+            TextField("Display name", text: $displayName)
+            TextField("User id", text: $user)
+                .help("The colour is hashed from this, falling back to the display name.")
+            Picker("Size", selection: $size) {
+                ForEach(Array(NCAvatar.Size.allCases), id: \.self) { Text(String(describing: $0)) }
+            }
+            Toggle("Presence", isOn: $showsStatus)
+            Picker("Status", selection: $status) {
+                ForEach(Array(NCUserStatus.allCases), id: \.self) { Text(String(describing: $0)) }
+            }
+            .disabled(!showsStatus)
+        }
+    }
+}
+
+private struct UserBubbleDemo: View {
+    @State private var displayName = "Rory Gilmore"
+    @State private var size = NCAvatar.Size.small
+    @State private var tappable = true
+
+    var body: some View {
+        Stage {
+            NCUserBubble(
+                displayName: displayName,
+                user: "rory",
+                size: size,
+                action: tappable ? {} : nil
+            )
+        } controls: {
+            TextField("Display name", text: $displayName)
+            Picker("Size", selection: $size) {
+                ForEach(Array(NCAvatar.Size.allCases), id: \.self) { Text(String(describing: $0)) }
+            }
+            Toggle("Tappable", isOn: $tappable)
+        }
+    }
+}
+
+private struct ProfileCardDemo: View {
+    @State private var displayName = "Luke Danes"
+    @State private var role = "Operations"
+    @State private var email = "luke@example.org"
+    @State private var status = NCUserStatus.away
+
+    var body: some View {
+        Stage {
+            NCProfileCard(
+                displayName: displayName,
+                user: "luke",
+                status: status,
+                secondaryLines: [role, email].filter { !$0.isEmpty }
+            ) {
+                Button("Message") {}
+            }
+        } controls: {
+            TextField("Display name", text: $displayName)
+            TextField("Role", text: $role)
+            TextField("Email", text: $email)
+            Picker("Status", selection: $status) {
+                ForEach(Array(NCUserStatus.allCases), id: \.self) { Text(String(describing: $0)) }
+            }
+        }
+    }
+}
+
+// MARK: - Wave 3 demos
+
+private struct ListItemDemo: View {
+    @State private var title = "Sookie St. James"
+    @State private var subtitle = "Re: the Dragonfly opening menu"
+    @State private var unread = 3
+    @State private var showsAvatar = true
+
+    var body: some View {
+        Stage {
+            List {
+                NCListItem(title, subtitle: subtitle.isEmpty ? nil : subtitle) {
+                    if showsAvatar {
+                        NCAvatar(displayName: title, user: "sookie")
+                    }
+                } details: {
+                    NCListItemDetails(date: .now.addingTimeInterval(-125), unreadCount: unread)
+                }
+            }
+            .frame(height: 120)
+        } controls: {
+            TextField("Title", text: $title)
+            TextField("Subtitle", text: $subtitle)
+            Stepper("Unread: \(unread)", value: $unread, in: 0...500)
+            Toggle("Leading avatar", isOn: $showsAvatar)
+        }
+    }
+}
+
+// MARK: - Wave 4 demos
+
+private struct NavigationItemDemo: View {
+    @State private var title = "Inbox"
+    @State private var count = 12
+    @State private var showsActions = true
+
+    var body: some View {
+        Stage {
+            List {
+                NCNavigationCaption("Mailboxes")
+                if showsActions {
+                    NCNavigationItem(title, icon: .folderOutline, count: count) {
+                        Button("Mark all as read") {}
+                        Button("Rename") {}
+                    }
+                } else {
+                    NCNavigationItem(title, icon: .folderOutline, count: count)
+                }
+            }
+            .frame(height: 120)
+        } controls: {
+            TextField("Title", text: $title)
+            Stepper("Count: \(count)", value: $count, in: 0...500)
+            Toggle("Trailing actions", isOn: $showsActions)
+        }
+    }
+}
+
+private struct BreadcrumbsDemo: View {
+    @State private var path = "Home/Projects/Nextcloud/Design/Icons/Exports"
+    @State private var width = 420.0
+
+    private var segments: [NCBreadcrumbSegment] {
+        path.split(separator: "/").map { NCBreadcrumbSegment(id: String($0), title: String($0)) }
+    }
+
+    var body: some View {
+        Stage {
+            NCBreadcrumbs(segments) { _ in }
+                .frame(width: width)
+        } controls: {
+            TextField("Path", text: $path)
+            Slider(value: $width, in: 120...640) { Text(verbatim: "Width") }
+            LabeledContent("Width", value: "\(Int(width)) pt")
+                .help("Narrow the bar to watch the middle segments collapse into a menu.")
+        }
+    }
+}
+
+// MARK: - The real test
+
+/// One Mail screen built from the library, which `docs/ROADMAP.md` calls the
+/// real test: it exercises `NCNavigationItem`, `NCCounterBubble`, `NCListItem`,
+/// `NCAvatar` and `NCUserBubble` together, which is where API problems show up
+/// that no unit test finds.
+///
+/// ponytail: two `List`s side by side rather than a `NavigationSplitView`. The
+/// showcase is already inside one, and nesting them buys nothing this screen is
+/// meant to check. Build it as a real split view in the scratch Mail app.
+private struct MailScreenDemo: View {
+    @Environment(\.ncTheme) private var theme
+
+    @State private var mailbox: String? = "Inbox"
+    @State private var selected: Message.ID?
+
+    private struct Message: Identifiable {
+        let id: String
+        let sender: String
+        let user: String
+        let subject: String
+        let preview: String
+        let age: TimeInterval
+        let unread: Bool
+    }
+
+    private let messages = [
+        Message(
+            id: "1", sender: "Sookie St. James", user: "sookie",
+            subject: "The Dragonfly opening menu",
+            preview: "I moved the risotto to the second course, tell me what you think.",
+            age: 125, unread: true),
+        Message(
+            id: "2", sender: "Michel Gerard", user: "michel",
+            subject: "Front desk rota",
+            preview: "I am not working Sundays. This is not a negotiation.",
+            age: 4_200, unread: true),
+        Message(
+            id: "3", sender: "Luke Danes", user: "luke",
+            subject: "Re: coffee order",
+            preview: "Fine. But this is the last time I deliver it.",
+            age: 90_000, unread: false),
+    ]
+
+    private var selectedMessage: Message? {
+        messages.first { $0.id == selected } ?? messages.first
+    }
+
+    var body: some View {
+        HStack(spacing: 0) {
+            List(selection: $mailbox) {
+                NCNavigationCaption("Mailboxes")
+                ForEach(["Inbox", "Sent", "Drafts", "Archive"], id: \.self) { name in
+                    NCNavigationItem(name, icon: .folderOutline, count: name == "Inbox" ? 2 : 0)
+                        .tag(name)
+                }
+            }
+            .frame(width: 180)
+
+            Divider()
+
+            List(messages, selection: $selected) { message in
+                NCListItem(message.sender, subtitle: message.subject) {
+                    NCAvatar(displayName: message.sender, user: message.user)
+                } details: {
+                    NCListItemDetails(
+                        date: .now.addingTimeInterval(-message.age),
+                        unreadCount: message.unread ? 1 : 0
+                    )
+                }
+                .fontWeight(message.unread ? .semibold : nil)
+                .tag(message.id)
+            }
+            .frame(width: 280)
+
+            Divider()
+
+            if let message = selectedMessage {
+                VStack(alignment: .leading, spacing: theme.metrics.spacing.comfortable) {
+                    Text(verbatim: message.subject)
+                        .font(.title2.weight(theme.typography.heading))
+                    NCUserBubble(displayName: message.sender, user: message.user, size: .medium)
+                    Text(verbatim: message.preview)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                }
+                .padding(theme.metrics.spacing.loose)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .frame(height: 380)
+        .background(.quinary, in: RoundedRectangle(cornerRadius: theme.metrics.radius.container))
+        .onChange(of: mailbox) { selected = nil }
     }
 }
