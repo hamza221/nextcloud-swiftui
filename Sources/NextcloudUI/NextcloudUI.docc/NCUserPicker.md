@@ -26,7 +26,7 @@ permits an impossible second selection on the single side.
 
 The candidate list is a `List(selection:)`. That brings arrow-key traversal,
 type-select, `⌘`-click, `⇧`-click ranges, the focus ring, the brand-tinted
-highlight through ``NCAccentPolicy``, and rows that report themselves as
+highlight through `NCAccentPolicy`, and rows that report themselves as
 selectable to VoiceOver.
 
 This view adds no key handler and no tap gesture of its own. A hand-rolled
@@ -70,13 +70,23 @@ What is left in `body` is composition.
 typed" and "no candidates at all". The system already writes, translates and
 lays out that message, so this component adds no string of its own for it.
 
+## The search field keeps its name
+
+The field passes both a `prompt` and a label, and then hides the label with
+`.labelsHidden()`. That modifier is layout-only: the label is not drawn, and
+assistive technology still reads it. The prompt is the placeholder, and a
+placeholder disappears the moment a letter is typed — so without the label, the
+field would lose its name exactly halfway through being filled in, which is the
+worst moment to lose it. Dropping the label view and keeping only the prompt
+would reintroduce that, and it is the one edit to make carefully here.
+
 ## Avatars
 
 `load` is optional. Omit it and every row shows initials on the person's own
-``NCUsernameColor``, which is what most Nextcloud accounts have anyway, and which
+`NCUsernameColor`, which is what most Nextcloud accounts have anyway, and which
 agrees with the web client exactly.
 
-The avatars are ``NCAccessibilityLabel/decorative``: the name is beside them in
+The avatars are `NCAccessibilityLabel.decorative`: the name is beside them in
 text, and hearing it twice is how a recipient list becomes unbearable.
 
 ## Topics
@@ -86,7 +96,7 @@ text, and hearing it twice is how a recipient list becomes unbearable.
 - ``NCUserCandidate``
 - ``NCUserSearch``
 
-### Composed from
+## See Also
 
 - ``NCAvatar``
 - ``NCChip``

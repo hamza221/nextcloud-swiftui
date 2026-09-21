@@ -29,12 +29,12 @@ public import SwiftUI
 ///
 /// ## The tint is not always the brand
 ///
-/// ``NCAccentPolicy/instance`` already installs the brand as `.tint` app-wide,
+/// `NCAccentPolicy.instance` already installs the brand as `.tint` app-wide,
 /// so under that policy a primary button is brand-tinted with no style at all.
 /// The style earns its place under the other two policies.
-/// ``NCAccentPolicy/brandSurfacesOnly`` keeps the user's macOS accent on
+/// `NCAccentPolicy.brandSurfacesOnly` keeps the user's macOS accent on
 /// ordinary controls, and a primary action is a brand surface, so it is tinted
-/// here. ``NCAccentPolicy/system`` tints nothing, and the style passes a `nil`
+/// here. `NCAccentPolicy.system` tints nothing, and the style passes a `nil`
 /// tint so the user's accent survives.
 ///
 /// ``NCButtonStyle/Role/error`` ignores the policy. An error colour is a status
@@ -127,7 +127,7 @@ public struct NCButtonStyle: PrimitiveButtonStyle {
             }
         }
 
-        /// `nil` under ``NCAccentPolicy/system``, which leaves the button with
+        /// `nil` under `NCAccentPolicy.system`, which leaves the button with
         /// the user's chosen macOS accent.
         private var brand: NCDynamicColor? {
             theme.accentPolicy == .system ? nil : theme.colors.primary

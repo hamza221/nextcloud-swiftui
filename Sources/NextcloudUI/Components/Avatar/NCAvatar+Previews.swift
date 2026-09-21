@@ -79,12 +79,9 @@ import SwiftUI
     .preferredColorScheme(.dark)
 }
 
-#Preview("Avatar / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so Increase Contrast cannot be
-    // forced from code -- toggle it in the canvas accessibility controls.
+#Preview("Avatar / increased contrast", traits: .ncIncreasedContrast) {
     // The initials colour is derived with NCContrast rather than fixed to white,
-    // so a gold avatar reads black and a purple one reads white in either
-    // appearance.
+    // so a gold avatar reads black and a purple one reads white.
     VStack(spacing: 12) {
         ForEach(["admin", "lorelai", "zaki", "Tom Mörtel"], id: \.self) { user in
             NCAvatar(displayName: user, user: user, size: .large)

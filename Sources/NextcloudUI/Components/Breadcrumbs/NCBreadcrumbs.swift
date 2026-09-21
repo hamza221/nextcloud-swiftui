@@ -116,6 +116,10 @@ public struct NCBreadcrumbs: View {
             label(segment, isCurrent: isCurrent)
         }
         .buttonStyle(.plain)
+        // A line of text is shorter than a hit target. Height only: the ruler
+        // measures widths, and padding one here would feed back into the plan
+        // that decided the widths in the first place.
+        .frame(minHeight: NCPlatformMetrics.minimumHitTarget)
         .ncPointerStyle(.link)
         .accessibilityAddTraits(isCurrent ? .isSelected : [])
     }
@@ -135,6 +139,12 @@ public struct NCBreadcrumbs: View {
         .menuStyle(.borderlessButton)
         .menuIndicator(.hidden)
         .fixedSize()
+        // The only way to reach a collapsed segment, so it gets a full hit
+        // target rather than the 16pt its glyph measures.
+        .frame(
+            minWidth: NCPlatformMetrics.minimumHitTarget,
+            minHeight: NCPlatformMetrics.minimumHitTarget
+        )
         .ncPointerStyle(.link)
         .ncAccessibilityLabel(.text(LocalizedStringResource(nc: "Show hidden path components")))
     }

@@ -59,7 +59,7 @@ public nonisolated struct NCColorTokens: Hashable, Sendable {
     public var favorite: NCDynamicColor
     /// The background behind a search hit. `--color-mark`.
     public var highlight: NCDynamicColor
-    /// Presence colours for ``NCUserStatusBadge``.
+    /// Presence colours for `NCUserStatusBadge`.
     public var userStatus: NCUserStatusColors
     /// Gradients reserved for AI-generated content.
     public var assistant: NCAssistantColors

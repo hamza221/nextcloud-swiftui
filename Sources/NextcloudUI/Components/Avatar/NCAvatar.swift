@@ -9,7 +9,7 @@ public import SwiftUI
 /// colour derived from their identifier, and a generic person icon. The middle
 /// step is the one that matters, because most Nextcloud accounts have no photo
 /// and a wall of identical grey circles makes a message list unreadable. The
-/// colour comes from ``NCUsernameColor``, which agrees with the web client
+/// colour comes from `NCUsernameColor`, which agrees with the web client
 /// exactly, so the same colleague is the same colour in both.
 ///
 /// ```swift
@@ -83,7 +83,7 @@ public struct NCAvatar: View {
     ///   - size: Resolved against `theme.metrics.avatar`.
     ///   - status: Adds an ``NCUserStatusBadge`` overlay.
     ///   - label: Defaults to the display name, which is what an avatar means.
-    ///     Pass ``NCAccessibilityLabel/decorative`` when the name is already
+    ///     Pass `NCAccessibilityLabel.decorative` when the name is already
     ///     visible beside it, as in ``NCUserBubble``.
     ///   - load: Fetches the photo. Omit it for accounts with no photo, which is
     ///     most of them.

@@ -65,12 +65,10 @@ Zero draws nothing, so a row can pass its count unconditionally.
 
 The name carries the meaning, so the icon is decorative. The counter speaks
 itself as an unread count. The actions menu has no text of its own and therefore
-takes an ``NCAccessibilityLabel``, defaulting to "More actions"; pass something
+takes an `NCAccessibilityLabel`, defaulting to "More actions"; pass something
 more specific when the row's actions are not generic.
 
-## Topics
-
-### Related
+## See Also
 
 - ``NCNavigationCaption``
 - ``NCCounterBubble``

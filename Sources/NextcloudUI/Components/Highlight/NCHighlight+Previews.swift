@@ -22,4 +22,14 @@ import SwiftUI
         .preferredColorScheme(.dark)
 }
 
+#Preview("HighlightText / increased contrast", traits: .ncIncreasedContrast) {
+    // The match background is the one colour this view resolves itself, so it
+    // is the one that can stop reading.
+    VStack(alignment: .leading, spacing: 8) {
+        NCHighlightText("Lorelai Taylor", matching: "lor")
+        NCHighlightText("Tom Mörtel", matching: "mortel")
+    }
+    .padding()
+}
+
 #endif

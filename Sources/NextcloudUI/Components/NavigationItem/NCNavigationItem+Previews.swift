@@ -73,14 +73,7 @@ private struct NCNavigationItemPreview: View {
     NCNavigationItemPreview().preferredColorScheme(.dark)
 }
 
-// `\.colorSchemeContrast` is get-only, so a preview cannot switch the system
-// setting on. What it can do is drive the tokens to a high-contrast brand, which
-// is the half of the result this library owns; the system half is the canvas's
-// own contrast variant.
-#Preview(
-    "Navigation item / increased contrast",
-    traits: .ncTheme(brand: NCBrand(primaryHex: "#00263f") ?? .nextcloud)
-) {
+#Preview("Navigation item / increased contrast", traits: .ncIncreasedContrast) {
     NCNavigationItemPreview()
 }
 

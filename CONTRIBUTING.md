@@ -103,6 +103,18 @@ SwiftPM warns about and ships nowhere.
    empty, dark, increased contrast and RTL. RTL matters for Nextcloud
    specifically.
 
+   The increased-contrast one is `traits: .ncIncreasedContrast`, always, with no
+   brand spelled out at the call site. `\.colorSchemeContrast` is get-only, so no
+   preview can switch macOS's Increase Contrast on. Half of what that setting
+   does is the system's — heavier separators, stronger borders — and you see that
+   half by turning the setting on in the canvas. The trait drives the other half
+   by pinning the brand to a near-black blue, which is what catches a component
+   that hard-codes Nextcloud blue or assumes white reads on the brand. Three
+   waves each invented their own `NCBrand(primaryHex:) ?? .nextcloud` before this
+   existed, and that spelling falls back to the stock theme in silence when the
+   literal is wrong, which is the one failure mode a contrast preview must not
+   have.
+
 ## Visual regression baselines
 
 **Generated only on the CI runner image. Never commit a baseline recorded on a

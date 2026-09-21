@@ -40,7 +40,7 @@ and its restoration. A component wrapping it could only add a name.
 Anything drawn here instead of by `Form` stops matching System Settings the first
 time Apple adjusts grouped-form metrics, which on a release where Liquid Glass is
 still settling is a live risk, not a theoretical one. It is the same reasoning
-that keeps window and control backgrounds out of ``NCColorTokens``.
+that keeps window and control backgrounds out of `NCColorTokens`.
 
 ### Where the Nextcloud identity goes
 

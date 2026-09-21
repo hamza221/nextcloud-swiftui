@@ -40,7 +40,7 @@ public import SwiftUI
 /// .labelStyle(.ncIconOnly)
 /// ```
 ///
-/// The icon inside takes ``NCAccessibilityLabel/decorative``, because the
+/// The icon inside takes `NCAccessibilityLabel.decorative`, because the
 /// title beside it is the answer and hearing it twice is how a toolbar becomes
 /// unbearable.
 public struct NCLabelStyle: LabelStyle {

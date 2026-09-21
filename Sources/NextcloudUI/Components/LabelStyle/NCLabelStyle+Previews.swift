@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-/// A label built the way a caller does: an ``NCIcon`` in the icon slot and
+/// A label built the way a caller does: an `NCIcon` in the icon slot and
 /// caller text in the title slot.
 private struct NCLabelStyleSample: View {
     let title: String
@@ -74,11 +74,9 @@ private struct NCLabelStyleSample: View {
     .preferredColorScheme(.dark)
 }
 
-#Preview("LabelStyle / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so Increase Contrast cannot be
-    // forced from preview code -- toggle it in the canvas accessibility
-    // controls. Neither layout picks a colour, so both follow whatever
-    // foreground style is in effect.
+#Preview("LabelStyle / increased contrast", traits: .ncIncreasedContrast) {
+    // Neither layout picks a colour, so both follow whatever foreground style
+    // is in effect.
     VStack(alignment: .leading, spacing: 8) {
         NCLabelStyleSample(title: "Inbox", symbol: .email)
         NCLabelStyleSample(title: "Secondary", symbol: .email).foregroundStyle(.secondary)

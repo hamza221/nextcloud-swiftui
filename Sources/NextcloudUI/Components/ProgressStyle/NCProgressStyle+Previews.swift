@@ -76,11 +76,9 @@ import SwiftUI
     .preferredColorScheme(.dark)
 }
 
-#Preview("ProgressStyle / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so Increase Contrast cannot be
-    // forced from preview code -- toggle it in the canvas accessibility
-    // controls. The track darkens and the tokens supply their
-    // increased-contrast variants; the style does neither itself.
+#Preview("ProgressStyle / increased contrast", traits: .ncIncreasedContrast) {
+    // The system darkens the track and the tint comes from the theme. The style
+    // does neither itself.
     VStack(alignment: .leading, spacing: 16) {
         ProgressView(value: 0.62).progressViewStyle(.normal)
         ProgressView(value: 0.62).progressViewStyle(.warning)

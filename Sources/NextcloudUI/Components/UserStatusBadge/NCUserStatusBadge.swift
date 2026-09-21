@@ -58,7 +58,7 @@ public struct NCUserStatusBadge: View {
     /// - Parameters:
     ///   - status: The presence to show.
     ///   - label: Defaults to the status's own spoken name. Pass
-    ///     ``NCAccessibilityLabel/decorative`` when overlaid on an avatar that
+    ///     `NCAccessibilityLabel.decorative` when overlaid on an avatar that
     ///     already appends the status to its label.
     public init(_ status: NCUserStatus, label: NCAccessibilityLabel? = nil) {
         self.status = status

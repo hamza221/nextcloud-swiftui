@@ -10,7 +10,7 @@ public import SwiftUI
 /// NCRelativeDateText(message.receivedAt, formatter: .init(width: .short, ignoresSeconds: true))
 /// ```
 ///
-/// The refresh cadence comes from ``NCRelativeDateSchedule``, which relaxes as
+/// The refresh cadence comes from `NCRelativeDateSchedule`, which relaxes as
 /// the date ages. The naive `.periodic(from: .now, by: 1)` would wake every row
 /// in a mailbox once a second forever, including the ones showing "last March".
 public struct NCRelativeDateText: View {

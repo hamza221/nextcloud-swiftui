@@ -52,11 +52,9 @@ private let ages: [TimeInterval] = [30, 600, 7200, 200_000, 4_000_000]
     .preferredColorScheme(.dark)
 }
 
-#Preview("ListItemDetails / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so this cannot be forced from code.
-    // Turn on Increase Contrast in System Settings and check the timestamp: it
-    // is `.secondary`, which the system darkens for you. If it ever stops being
-    // legible here, the fix is a system style, not a token.
+#Preview("ListItemDetails / increased contrast", traits: .ncIncreasedContrast) {
+    // The timestamp is `.secondary`, which the system darkens. If it ever stops
+    // being legible here, the fix is a system style, not a token.
     HStack(spacing: 20) {
         ForEach(ages, id: \.self) { age in
             NCListItemDetails(date: .now.addingTimeInterval(-age), unreadCount: 3)

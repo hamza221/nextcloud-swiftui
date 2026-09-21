@@ -51,12 +51,7 @@ private struct NCNavigationCaptionPreview: View {
     NCNavigationCaptionPreview().preferredColorScheme(.dark)
 }
 
-// `\.colorSchemeContrast` is get-only, so this drives the tokens to a
-// high-contrast brand instead; the system half is the canvas's contrast variant.
-#Preview(
-    "Navigation caption / increased contrast",
-    traits: .ncTheme(brand: NCBrand(primaryHex: "#00263f") ?? .nextcloud)
-) {
+#Preview("Navigation caption / increased contrast", traits: .ncIncreasedContrast) {
     NCNavigationCaptionPreview()
 }
 

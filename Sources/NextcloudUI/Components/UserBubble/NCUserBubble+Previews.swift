@@ -55,11 +55,9 @@ import SwiftUI
     .preferredColorScheme(.dark)
 }
 
-#Preview("UserBubble / increased contrast", traits: .ncTheme) {
-    // `\.colorSchemeContrast` is read-only, so Increase Contrast cannot be
-    // forced from code -- toggle it in the canvas accessibility controls. The
-    // capsule is `.quaternary`, which the system darkens on its own; the avatar
-    // picks its own contrasting foreground.
+#Preview("UserBubble / increased contrast", traits: .ncIncreasedContrast) {
+    // The capsule is `.quaternary`, which the system darkens on its own, and
+    // the avatar picks its own contrasting foreground.
     VStack(alignment: .leading, spacing: 8) {
         NCUserBubble(displayName: "Lorelai Taylor", user: "lorelai")
         NCUserBubble(displayName: "Zaki Cortes", user: "zaki")

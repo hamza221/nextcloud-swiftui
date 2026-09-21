@@ -25,8 +25,10 @@ public import SwiftUI
 /// overflow menu opens the `NCEmojiPalette` shim in `NextcloudPlatform` instead.
 ///
 /// The palette *inserts* into the focused responder rather than returning a
-/// value, so this view keeps a one-character field to catch what it inserts.
-/// That is the whole of the platform-specific code here.
+/// value, so this view builds a one-character field to catch what it inserts.
+/// The field exists only while the palette is open, so a keyboard user tabbing
+/// through a message never lands on it. That is the whole of the
+/// platform-specific code here.
 ///
 /// ## Counts are not in here
 ///
@@ -39,6 +41,7 @@ public struct NCReactionPicker: View {
     private let onToggle: (String) -> Void
 
     @State private var paletteEntry = ""
+    @State private var catchingPaletteInsertion = false
     @FocusState private var paletteEntryFocused: Bool
     @Environment(\.ncTheme) private var theme
 
@@ -93,6 +96,11 @@ public struct NCReactionPicker: View {
         }
         .buttonStyle(.plain)
         .ncPointerStyle(.link)
+        // On the `Button`, outside its label. `NCChip` combines its own children,
+        // which makes the chip one element *inside* the button rather than a
+        // second focusable one beside it, so the button is still what VoiceOver
+        // lands on and this trait reaches it. Wrapping the button in a combine
+        // would invert that and swallow the trait.
         .accessibilityAddTraits(reaction.isMine ? .isSelected : [])
     }
 
@@ -118,7 +126,7 @@ public struct NCReactionPicker: View {
             if NCEmojiPalette.isAvailable {
                 Divider()
                 Button {
-                    paletteEntryFocused = true
+                    catchingPaletteInsertion = true
                     NCEmojiPalette.present()
                 } label: {
                     Text(LocalizedStringResource(nc: "More reactions…"))
@@ -130,17 +138,33 @@ public struct NCReactionPicker: View {
         .menuStyle(.borderlessButton)
         .menuIndicator(.hidden)
         .fixedSize()
+        // The plus glyph is 16pt, and this is the only route to the emoji
+        // palette, so it gets the platform's hit target.
+        .frame(
+            minWidth: NCPlatformMetrics.minimumHitTarget,
+            minHeight: NCPlatformMetrics.minimumHitTarget
+        )
         .ncAccessibilityLabel(.text(LocalizedStringResource(nc: "Add reaction")))
     }
 
-    /// Catches what the system palette inserts.
+    /// Catches what the system palette inserts, and exists only while it is
+    /// open.
     ///
     /// `orderFrontCharacterPalette` writes into the focused responder and
     /// returns nothing, so the only way to learn what was picked is to give it
     /// somewhere to write. A one-character field is that somewhere.
+    ///
+    /// Building it on demand is the whole point. A field that is always present
+    /// is `.accessibilityHidden(true)` and still a tab stop, so a keyboard user
+    /// hits an invisible one-pixel field between the reactions and whatever
+    /// follows them. Here it is inserted by "More reactions…", takes focus as it
+    /// appears, and is torn down again the moment it loses focus -- which
+    /// happens when the person picks a character, dismisses the palette, or
+    /// clicks anywhere else. The palette itself is a floating panel that does not
+    /// take first responder, which is what makes this work at all.
     @ViewBuilder
     private var paletteEntryField: some View {
-        if NCEmojiPalette.isAvailable {
+        if catchingPaletteInsertion {
             TextField(text: $paletteEntry) { EmptyView() }
                 .textFieldStyle(.plain)
                 .labelsHidden()
@@ -148,6 +172,10 @@ public struct NCReactionPicker: View {
                 .frame(width: 1)
                 .opacity(0.01)
                 .accessibilityHidden(true)
+                .onAppear { paletteEntryFocused = true }
+                .onChange(of: paletteEntryFocused) { _, focused in
+                    if !focused { catchingPaletteInsertion = false }
+                }
                 .onChange(of: paletteEntry) { _, inserted in
                     // ponytail: the first grapheme cluster, not a validated
                     // emoji. The palette also inserts letters and symbols, and
@@ -155,7 +183,7 @@ public struct NCReactionPicker: View {
                     // server-side constraint appears, not before.
                     guard let picked = inserted.first.map(String.init) else { return }
                     paletteEntry = ""
-                    paletteEntryFocused = false
+                    catchingPaletteInsertion = false
                     onToggle(picked)
                 }
         }

@@ -102,4 +102,18 @@ nonisolated enum NCAsyncImagePreviewLoader {
     .padding()
 }
 
+#Preview("NCAsyncImage / increased contrast", traits: .ncIncreasedContrast) {
+    // This view paints nothing of its own, so what there is to check is that the
+    // caller's placeholder still separates from the background while loading.
+    NCAsyncImage(
+        identity: "preview.contrast",
+        label: .decorative,
+        load: NCAsyncImagePreviewLoader.immediate
+    ) {
+        Color.gray.opacity(0.3)
+    }
+    .frame(width: 96, height: 96)
+    .padding()
+}
+
 #endif

@@ -1,8 +1,3 @@
-<!--
-SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
-SPDX-License-Identifier: AGPL-3.0-or-later
--->
-
 # ``NCListItemDetails``
 
 The trailing metadata cluster of a row: when it happened, over how much of it is
@@ -42,7 +37,7 @@ because a row is narrow, and second-free because a counter ticking once a second
 pulls the eye off the subject line -- the same reason `@nextcloud/vue` turns it
 off in list contexts.
 
-Refresh cadence comes from ``NCRelativeDateSchedule``, which relaxes as the date
+Refresh cadence comes from `NCRelativeDateSchedule`, which relaxes as the date
 ages. A mailbox of ten thousand messages does not wake once a second.
 
 ## Accessibility

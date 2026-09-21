@@ -53,4 +53,15 @@ import SwiftUI
     NCChip("Instance branding", role: .primary).padding()
 }
 
+#Preview("Chip / increased contrast", traits: .ncIncreasedContrast) {
+    // The primary role is the one at risk: its text sits on a derived surface
+    // token rather than on a system material.
+    VStack(alignment: .leading, spacing: 8) {
+        ForEach(NCChip<EmptyView>.Role.allCases, id: \.self) { role in
+            NCChip("Lorelai Taylor", role: role, onRemove: {})
+        }
+    }
+    .padding()
+}
+
 #endif

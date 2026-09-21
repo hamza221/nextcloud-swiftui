@@ -10,7 +10,7 @@ public import SwiftUI
 /// `.foregroundStyle` is in effect -- an icon never picks its own colour.
 ///
 /// The accessibility label is a required argument. Most icons sit beside a text
-/// label that already carries the meaning, and ``NCAccessibilityLabel/decorative``
+/// label that already carries the meaning, and `NCAccessibilityLabel.decorative`
 /// is the right answer there, but it has to be chosen rather than forgotten.
 public struct NCIcon: View {
     private let symbol: NCSymbol

@@ -54,10 +54,15 @@ portability: ## Build the portable targets for iOS (the canary)
 	xcodebuild build -scheme NextcloudDesign -destination 'generic/platform=iOS' -quiet
 	xcodebuild build -scheme NextcloudIcons  -destination 'generic/platform=iOS' -quiet
 
+# All three library targets, not just the one Pages publishes. `@_exported
+# import` gives consumers one import line but does not merge symbol graphs, so
+# DocC builds one archive per module and only a per-target build checks the
+# tokens' and the icons' own curation.
 .PHONY: docs
-docs: ## Build the DocC archive
+docs: ## Build the DocC archives
 	NC_BUILD_DOCS=1 swift package --allow-writing-to-directory ./docs-build \
-		generate-documentation --target NextcloudUI \
+		generate-documentation \
+		--target NextcloudUI --target NextcloudDesign --target NextcloudIcons \
 		--transform-for-static-hosting --output-path ./docs-build
 
 .PHONY: snapshots

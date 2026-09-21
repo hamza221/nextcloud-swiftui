@@ -15,10 +15,10 @@ carries the component. Most Nextcloud accounts have no photo, and a column of
 identical grey circles makes a message list unreadable, so the colour is doing
 the work that a photo would.
 
-The colour comes from ``NCUsernameColor``, which is pinned against the web
+The colour comes from `NCUsernameColor`, which is pinned against the web
 client's vectors. A colleague who is teal in the browser is teal here, and a
 drift would read as two different people. The foreground is picked with
-``NCContrast`` rather than fixed to white, because the palette runs from gold to
+`NCContrast` rather than fixed to white, because the palette runs from gold to
 deep purple and white fails contrast across a third of it.
 
 The initials themselves come from ``NCAvatarInitials``, which is a plain enum
@@ -49,7 +49,7 @@ indicator".
 
 `label` defaults to the display name because the component already holds a
 correct answer, which is the same reason ``NCUserStatusBadge`` defaults to the
-status name. Pass ``NCAccessibilityLabel/decorative`` when the name is visible
+status name. Pass `NCAccessibilityLabel.decorative` when the name is visible
 beside it, as ``NCUserBubble`` and ``NCProfileCard`` both do.
 
 ## Topics

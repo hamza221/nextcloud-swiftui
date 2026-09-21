@@ -22,7 +22,7 @@ public import SwiftUI
 ///
 /// It draws no selection, no hover fill and no focus ring, because `List`
 /// already does all three, correctly, with the instance's brand tint (see
-/// ``NCAccentPolicy``) and with the keyboard and accessibility behaviour that
+/// `NCAccentPolicy`) and with the keyboard and accessibility behaviour that
 /// comes with it. Hand-rolling any of that produces a row that ignores
 /// `⌘`-click, loses its highlight when the window resigns key, and reads as a
 /// static group to VoiceOver. Tag the row or wrap it in a `ForEach` over an
@@ -45,9 +45,9 @@ public import SwiftUI
 ///
 /// The row combines into one element, so VoiceOver reads "Lorelai Taylor, about
 /// Friday, 2 minutes ago, 3 unread" and one swipe moves to the next message
-/// instead of into the row. A row takes no ``NCAccessibilityLabel`` because its
+/// instead of into the row. A row takes no `NCAccessibilityLabel` because its
 /// title is already text; the leading slot's content is what needs one, and
-/// ``NCAccessibilityLabel/decorative`` is usually the honest answer there.
+/// `NCAccessibilityLabel.decorative` is usually the honest answer there.
 ///
 /// Combining makes a button in the trailing slot unreachable, so surface it the
 /// way ``NCChip`` surfaces its remove button -- as a rotor action on the row:

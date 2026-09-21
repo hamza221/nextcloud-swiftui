@@ -40,4 +40,16 @@ import SwiftUI
     .preferredColorScheme(.dark)
 }
 
+#Preview("NoteCard / increased contrast", traits: .ncIncreasedContrast) {
+    // Each role puts `onSurface` on `surface`. Both are theme tokens, so this is
+    // the preview where a status pair that is too close shows up.
+    VStack(spacing: 12) {
+        ForEach(NCNoteCard<Text>.Role.allCases, id: \.self) { role in
+            NCNoteCard(role, message: "Anyone with the link can edit.")
+        }
+    }
+    .frame(width: 380)
+    .padding()
+}
+
 #endif

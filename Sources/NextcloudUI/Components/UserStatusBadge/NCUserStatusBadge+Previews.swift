@@ -29,4 +29,15 @@ import SwiftUI
     .preferredColorScheme(.dark)
 }
 
+#Preview("UserStatusBadge / increased contrast", traits: .ncIncreasedContrast) {
+    // Shape carries the meaning here and colour only reinforces it, so this
+    // preview should look almost identical to the first one.
+    HStack(spacing: 16) {
+        ForEach(NCUserStatus.allCases, id: \.self) { status in
+            NCUserStatusBadge(status)
+        }
+    }
+    .padding()
+}
+
 #endif
