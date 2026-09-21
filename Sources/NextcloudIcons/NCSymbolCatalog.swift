@@ -18,7 +18,8 @@ extension NCSymbol {
     public static let accountOutline = NCSymbol(asset: "account-outline", systemFallback: "person")
 
     /// Material Design Icons `alert-octagon-outline`.
-    public static let alertOctagonOutline = NCSymbol(asset: "alert-octagon-outline", systemFallback: "exclamationmark.octagon")
+    public static let alertOctagonOutline = NCSymbol(
+        asset: "alert-octagon-outline", systemFallback: "exclamationmark.octagon")
 
     /// Material Design Icons `align-horizontal-center`.
     public static let alignHorizontalCenter = NCSymbol(asset: "align-horizontal-center", systemFallback: nil)
@@ -63,7 +64,8 @@ extension NCSymbol {
     public static let checkboxMarked = NCSymbol(asset: "checkbox-marked", systemFallback: "checkmark.square.fill")
 
     /// Material Design Icons `checkbox-marked-circle-outline`.
-    public static let checkboxMarkedCircleOutline = NCSymbol(asset: "checkbox-marked-circle-outline", systemFallback: "checkmark.circle")
+    public static let checkboxMarkedCircleOutline = NCSymbol(
+        asset: "checkbox-marked-circle-outline", systemFallback: "checkmark.circle")
 
     /// Material Design Icons `chevron-down`.
     public static let chevronDown = NCSymbol(asset: "chevron-down", systemFallback: "chevron.down")
@@ -114,7 +116,8 @@ extension NCSymbol {
     public static let dotsHorizontal = NCSymbol(asset: "dots-horizontal", systemFallback: "ellipsis")
 
     /// Material Design Icons `dots-horizontal-circle-outline`.
-    public static let dotsHorizontalCircleOutline = NCSymbol(asset: "dots-horizontal-circle-outline", systemFallback: "ellipsis.circle")
+    public static let dotsHorizontalCircleOutline = NCSymbol(
+        asset: "dots-horizontal-circle-outline", systemFallback: "ellipsis.circle")
 
     /// Material Design Icons `download`.
     public static let download = NCSymbol(asset: "download", systemFallback: "arrow.down.circle.fill")
@@ -246,7 +249,8 @@ extension NCSymbol {
     public static let shareVariant = NCSymbol(asset: "share-variant", systemFallback: "square.and.arrow.up.fill")
 
     /// Material Design Icons `share-variant-outline`.
-    public static let shareVariantOutline = NCSymbol(asset: "share-variant-outline", systemFallback: "square.and.arrow.up")
+    public static let shareVariantOutline = NCSymbol(
+        asset: "share-variant-outline", systemFallback: "square.and.arrow.up")
 
     /// Material Design Icons `star`.
     public static let star = NCSymbol(asset: "star", systemFallback: "star.fill")

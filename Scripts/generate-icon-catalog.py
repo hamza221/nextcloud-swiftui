@@ -121,9 +121,17 @@ def main() -> int:
         fallback = FALLBACKS.get(name)
         rendered = f'"{fallback}"' if fallback else "nil"
         lines.append(f"    /// Material Design Icons `{asset}`.")
-        lines.append(
-            f'    public static let {camel(name)} = NCSymbol(asset: "{asset}", systemFallback: {rendered})'
+        decl = (
+            f'    public static let {camel(name)} = NCSymbol(asset: "{asset}", '
+            f"systemFallback: {rendered})"
         )
+        # Wrap the way swift-format would, so `make lint-format` does not fight
+        # the generator over the 120-column limit.
+        if len(decl) > 120:
+            lines.append(f"    public static let {camel(name)} = NCSymbol(")
+            lines.append(f'        asset: "{asset}", systemFallback: {rendered})')
+        else:
+            lines.append(decl)
         lines.append("")
 
     covered = sum(1 for n in names if n in FALLBACKS)

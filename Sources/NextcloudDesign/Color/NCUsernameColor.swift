@@ -1,9 +1,8 @@
 // SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-public import SwiftUI
-
 internal import CryptoKit
+public import SwiftUI
 
 /// Maps a user identifier to a stable colour from ``NCAvatarPalette``.
 ///
@@ -74,8 +73,8 @@ public nonisolated enum NCUsernameColor {
     private static func lowercaseHexValue(_ character: Character) -> Int? {
         guard let ascii = character.asciiValue else { return nil }
         switch ascii {
-        case 0x30...0x39: return Int(ascii - 0x30)          // 0-9
-        case 0x61...0x66: return Int(ascii - 0x61) + 10     // a-f
+        case 0x30...0x39: return Int(ascii - 0x30)  // 0-9
+        case 0x61...0x66: return Int(ascii - 0x61) + 10  // a-f
         default: return nil
         }
     }

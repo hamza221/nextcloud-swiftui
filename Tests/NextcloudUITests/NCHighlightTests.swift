@@ -69,8 +69,12 @@ struct NCHighlightTests {
     func producesAttributedString() {
         let attributed = NCHighlight.attributed("banana", matching: "an", background: .yellow)
         #expect(String(attributed.characters) == "banana")
-        let highlighted = attributed.runs.filter { $0.backgroundColor != nil }
-        #expect(highlighted.count == 2)
+        // Both matches in "banana" are adjacent, so AttributedString coalesces
+        // them into a single run. Count the covered characters instead.
+        let covered = attributed.runs
+            .filter { $0.backgroundColor != nil }
+            .reduce(0) { $0 + attributed[$1.range].characters.count }
+        #expect(covered == 4)
     }
 
     @Test("returns the subject unchanged when nothing matches")

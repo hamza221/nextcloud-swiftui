@@ -28,23 +28,29 @@ struct NCAtomSnapshotTests {
         named name: String,
         width: CGFloat = 320,
         height: CGFloat = 80,
-        scheme: ColorScheme = .light
+        scheme: ColorScheme = .light,
+        // Without this the baseline is named after `assertAtom`, so every test
+        // passing `named: "roles"` overwrites the same file.
+        testName: String = #function
     ) {
-        let hosted =
-            view
-            .ncTheme(.nextcloud)
-            .preferredColorScheme(scheme)
-            .frame(width: width, height: height)
-            .background(Color.white)
+        // SnapshotTesting has no SwiftUI-View strategy on macOS, only NSView,
+        // which is what the doc comment above wants anyway.
+        let hosted = NSHostingView(
+            rootView:
+                view
+                .ncTheme(.nextcloud)
+                .preferredColorScheme(scheme)
+                .frame(width: width, height: height)
+                .background(Color.white)
+        )
+        hosted.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        hosted.layoutSubtreeIfNeeded()
 
         assertSnapshot(
             of: hosted,
-            as: .image(
-                precision: precision,
-                perceptualPrecision: perceptualPrecision,
-                layout: .fixed(width: width, height: height)
-            ),
-            named: name
+            as: .image(precision: precision, perceptualPrecision: perceptualPrecision),
+            named: name,
+            testName: testName
         )
     }
 

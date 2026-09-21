@@ -1,8 +1,6 @@
 // SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-public import SwiftUI
-
 /// Every design token, in one value.
 ///
 /// One struct rather than forty environment keys. That buys a single environment

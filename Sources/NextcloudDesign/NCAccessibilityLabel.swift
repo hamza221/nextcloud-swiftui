@@ -11,7 +11,7 @@ public import SwiftUI
 /// type non-optionally instead, so that *unlabelled construction is impossible*
 /// and the author has to make a decision, even if that decision is
 /// ``decorative``.
-public nonisolated enum NCAccessibilityLabel: Hashable, Sendable {
+public nonisolated enum NCAccessibilityLabel: Sendable {
     /// Hidden from assistive technology.
     ///
     /// Correct when an adjacent view already carries the meaning -- the

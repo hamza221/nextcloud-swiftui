@@ -22,7 +22,7 @@ struct NCKeyboardShortcutTests {
         #expect(NCKeyboardShortcutGlyphs.string(for: NCKeyboardShortcut("k")) == "\u{2318}K")
         #expect(
             NCKeyboardShortcutGlyphs.string(for: NCKeyboardShortcut("k", modifiers: [.command, .shift]))
-                == "\u{2318}\u{21E7}K"
+                == "\u{21E7}\u{2318}K"
         )
         #expect(NCKeyboardShortcutGlyphs.string(for: NCKeyboardShortcut("a", modifiers: [])) == "A")
     }

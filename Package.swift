@@ -3,8 +3,8 @@
 // SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import PackageDescription
 import Foundation
+import PackageDescription
 
 /// Settings applied to every target in the package.
 ///
@@ -25,8 +25,8 @@ let sharedSwiftSettings: [SwiftSetting] = [
 /// `NC_BUILD_DOCS=1 swift package generate-documentation`.
 let doccDependency: [Package.Dependency] =
     ProcessInfo.processInfo.environment["NC_BUILD_DOCS"] == nil
-        ? []
-        : [.package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.4.3")]
+    ? []
+    : [.package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.4.3")]
 
 let package = Package(
     name: "nextcloud-ui-swift",
@@ -41,7 +41,7 @@ let package = Package(
         // Test-only. SwiftPM does not resolve a dependency that is used solely by
         // test targets when this package is consumed as a dependency, so this
         // never reaches a consumer's Package.resolved.
-        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0")
     ],
     targets: [
         // Tokens and colour maths. No platform code: this target is the

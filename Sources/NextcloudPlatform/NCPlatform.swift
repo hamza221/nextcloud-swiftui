@@ -28,11 +28,11 @@ public enum NCPlatform {
     /// showcase's about box.
     public static var name: String {
         #if canImport(AppKit)
-            "macOS"
+        "macOS"
         #elseif canImport(UIKit)
-            "iOS"
+        "iOS"
         #else
-            "unknown"
+        "unknown"
         #endif
     }
 }

@@ -13,12 +13,12 @@
 //
 // Regenerate with: Scripts/import-username-color-fixtures.py
 
-internal struct NCUsernameColorVector: Sendable {
+internal nonisolated struct NCUsernameColorVector: Sendable {
     let username: String
     let hex: String
 }
 
-internal enum NCUsernameColorFixtures {
+internal nonisolated enum NCUsernameColorFixtures {
     internal static let all: [NCUsernameColorVector] = [
         NCUsernameColorVector(username: "", hex: "#0082c9"),
         NCUsernameColorVector(username: ",", hex: "#1e78c1"),
