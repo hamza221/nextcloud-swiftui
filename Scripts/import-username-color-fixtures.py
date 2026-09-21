@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: Hamza Mahjoubi
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """Regenerate the usernameToColor parity fixtures from @nextcloud/vue.
 

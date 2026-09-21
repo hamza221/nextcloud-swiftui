@@ -1,5 +1,5 @@
 #!/bin/sh
-# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: Hamza Mahjoubi
 # SPDX-License-Identifier: AGPL-3.0-or-later
 #
 # Conventional Commits check, for local convenience only. CI gates the PR title,

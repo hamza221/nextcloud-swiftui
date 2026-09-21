@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: Hamza Mahjoubi
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """Regenerate the typed Material Design Icons catalogue.
 
@@ -76,7 +76,7 @@ SWIFT_KEYWORDS = {
     "true", "try",
 }
 
-HEADER = '''// SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+HEADER = '''// SPDX-FileCopyrightText: Hamza Mahjoubi
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 // GENERATED FILE -- do not edit by hand.

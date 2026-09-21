@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+// SPDX-FileCopyrightText: Hamza Mahjoubi
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 /// Preparing caller data for a single-line row, separated from the view that

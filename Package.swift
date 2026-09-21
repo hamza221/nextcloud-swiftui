@@ -1,6 +1,6 @@
 // swift-tools-version: 6.2
 //
-// SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+// SPDX-FileCopyrightText: Hamza Mahjoubi
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import Foundation

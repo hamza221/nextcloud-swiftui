@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: Hamza Mahjoubi
 # SPDX-License-Identifier: AGPL-3.0-or-later
 version = 1
 SPDX-PackageName = "NextcloudUI SwiftUI component library"
@@ -19,7 +19,7 @@ path = [
     "Scripts/icon-manifest.txt",
 ]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
+SPDX-FileCopyrightText = "Hamza Mahjoubi"
 SPDX-License-Identifier = "CC0-1.0"
 
 # Asset catalogues, string catalogues and Xcode project files cannot carry a
@@ -33,7 +33,7 @@ path = [
     ".swiftpm/**",
 ]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
+SPDX-FileCopyrightText = "Hamza Mahjoubi"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
 # Every symbolset under here is generated from a Material Design Icons SVG by
@@ -52,14 +52,14 @@ SPDX-License-Identifier = "Apache-2.0"
 [[annotations]]
 path = "Sources/**/*.docc/**"
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
+SPDX-FileCopyrightText = "Hamza Mahjoubi"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
 # Visual regression baselines are generated artefacts.
 [[annotations]]
 path = "Tests/NextcloudUISnapshotTests/__Snapshots__/**"
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
+SPDX-FileCopyrightText = "Hamza Mahjoubi"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
 # Test vectors ported verbatim from @nextcloud/vue, so that the same person gets
