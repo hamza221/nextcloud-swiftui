@@ -73,13 +73,22 @@ let package = Package(
         .target(
             name: "NextcloudUI",
             dependencies: ["NextcloudDesign", "NextcloudPlatform", "NextcloudIcons"],
-            // CONTRIBUTING puts each component's DocC extension beside its
-            // source. SwiftPM has no glob, so every one has to be named here or
-            // the build warns that it is unhandled. Add a line when you add a
-            // component.
+            // A component's DocC extension sits beside the component it
+            // documents, which CONTRIBUTING makes part of the definition of
+            // done. SwiftPM otherwise reports each one as an unhandled file, and
+            // `exclude` takes paths rather than a glob, so they are listed. Add
+            // a line when you add a component.
+            //
+            // One directory keeps its `NC` prefix where its siblings drop it:
+            // the unprefixed spelling is the word `nc_no_async_image` bans, and
+            // the rule reads paths and preview names as well as code.
             exclude: [
+                "Components/NCAsyncImage/NCAsyncImage.md",
+                "Components/Avatar/NCAvatar.md",
                 "Components/ListItem/NCListItem.md",
                 "Components/ListItemDetails/NCListItemDetails.md",
+                "Components/ProfileCard/NCProfileCard.md",
+                "Components/UserBubble/NCUserBubble.md",
             ],
             resources: [.process("Resources")],
             swiftSettings: sharedSwiftSettings
