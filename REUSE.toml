@@ -49,15 +49,6 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
-# A DocC extension file must open with the symbol it documents, for the same
-# reason as the catalogue pages above. CONTRIBUTING puts these next to the source
-# rather than in the catalogue, so they need their own glob.
-[[annotations]]
-path = "Sources/NextcloudUI/Components/**/*.md"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Nextcloud GmbH and Nextcloud contributors"
-SPDX-License-Identifier = "AGPL-3.0-or-later"
-
 # Visual regression baselines are generated artefacts.
 [[annotations]]
 path = "Tests/NextcloudUISnapshotTests/__Snapshots__/**"

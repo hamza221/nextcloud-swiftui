@@ -18,9 +18,6 @@ import Testing
 @Suite("Navigation snapshots", .serialized)
 @MainActor
 struct NCNavigationSnapshotTests {
-    private let precision: Float = 0.99
-    private let perceptualPrecision: Float = 0.98
-
     private func assertNavigation(
         _ view: some View,
         named name: String,
@@ -28,35 +25,26 @@ struct NCNavigationSnapshotTests {
         height: CGFloat = 80,
         scheme: ColorScheme = .light,
         layoutDirection: LayoutDirection = .leftToRight,
-        // Without this the baseline is named after `assertNavigation`, so every
-        // test passing `named: "default"` overwrites the same file.
-        testName: String = #function
+        // Without this the baseline is named after `assertNavigation`, so every test
+        // passing the same `named:` overwrites one file.
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        testName: String = #function,
+        line: UInt = #line,
+        column: UInt = #column
     ) {
-        let hosted = NSHostingView(
-            rootView:
-                view
-                .ncTheme(.nextcloud)
-                // Both, and the second one is the one that works. An
-                // `NSHostingView` with no window inherits the *process*
-                // appearance, and `.preferredColorScheme` only asks the window
-                // for one -- so on a machine set to dark, a suite asking for
-                // light captures the dark tokens as white text on the white
-                // backdrop below, which reads as a blank image rather than as a
-                // failure.
-                .preferredColorScheme(scheme)
-                .environment(\.colorScheme, scheme)
-                .environment(\.layoutDirection, layoutDirection)
-                .frame(width: width, height: height)
-                .background(Color.white)
-        )
-        hosted.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        hosted.layoutSubtreeIfNeeded()
-
-        assertSnapshot(
-            of: hosted,
-            as: .image(precision: precision, perceptualPrecision: perceptualPrecision),
+        assertNCSnapshot(
+            view,
             named: name,
-            testName: testName
+            width: width,
+            height: height,
+            scheme: scheme,
+            layoutDirection: layoutDirection,
+            fileID: fileID,
+            filePath: filePath,
+            testName: testName,
+            line: line,
+            column: column
         )
     }
 

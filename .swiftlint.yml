@@ -13,6 +13,7 @@ only_rules:
 
 excluded:
   - .build
+  - .claude
   - LICENSES
   - Tests/NextcloudUISnapshotTests/__Snapshots__
 

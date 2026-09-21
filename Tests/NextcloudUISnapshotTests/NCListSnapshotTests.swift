@@ -18,35 +18,33 @@ import Testing
 @Suite("List snapshots", .serialized)
 @MainActor
 struct NCListSnapshotTests {
-    private let precision: Float = 0.99
-    private let perceptualPrecision: Float = 0.98
-
     private func assertList(
         _ view: some View,
         named name: String,
         width: CGFloat = 340,
         height: CGFloat = 200,
         scheme: ColorScheme = .light,
+        layoutDirection: LayoutDirection = .leftToRight,
         // Without this the baseline is named after `assertList`, so every test
-        // passing `named: "default"` overwrites the same file.
-        testName: String = #function
+        // passing the same `named:` overwrites one file.
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        testName: String = #function,
+        line: UInt = #line,
+        column: UInt = #column
     ) {
-        let hosted = NSHostingView(
-            rootView:
-                view
-                .ncTheme(.nextcloud)
-                .preferredColorScheme(scheme)
-                .frame(width: width, height: height)
-                .background(Color.white)
-        )
-        hosted.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        hosted.layoutSubtreeIfNeeded()
-
-        assertSnapshot(
-            of: hosted,
-            as: .image(precision: precision, perceptualPrecision: perceptualPrecision),
+        assertNCSnapshot(
+            view,
             named: name,
-            testName: testName
+            width: width,
+            height: height,
+            scheme: scheme,
+            layoutDirection: layoutDirection,
+            fileID: fileID,
+            filePath: filePath,
+            testName: testName,
+            line: line,
+            column: column
         )
     }
 

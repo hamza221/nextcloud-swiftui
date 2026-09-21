@@ -22,33 +22,33 @@ import Testing
 @Suite("Identity snapshots", .serialized)
 @MainActor
 struct NCIdentitySnapshotTests {
-    private let precision: Float = 0.99
-    private let perceptualPrecision: Float = 0.98
-
     private func assertIdentity(
         _ view: some View,
         named name: String,
         width: CGFloat = 320,
         height: CGFloat = 96,
         scheme: ColorScheme = .light,
-        testName: String = #function
+        layoutDirection: LayoutDirection = .leftToRight,
+        // Without this the baseline is named after `assertIdentity`, so every test
+        // passing the same `named:` overwrites one file.
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        testName: String = #function,
+        line: UInt = #line,
+        column: UInt = #column
     ) {
-        let hosted = NSHostingView(
-            rootView:
-                view
-                .ncTheme(.nextcloud)
-                .preferredColorScheme(scheme)
-                .frame(width: width, height: height)
-                .background(Color.white)
-        )
-        hosted.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        hosted.layoutSubtreeIfNeeded()
-
-        assertSnapshot(
-            of: hosted,
-            as: .image(precision: precision, perceptualPrecision: perceptualPrecision),
+        assertNCSnapshot(
+            view,
             named: name,
-            testName: testName
+            width: width,
+            height: height,
+            scheme: scheme,
+            layoutDirection: layoutDirection,
+            fileID: fileID,
+            filePath: filePath,
+            testName: testName,
+            line: line,
+            column: column
         )
     }
 
