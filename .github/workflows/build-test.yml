@@ -40,12 +40,18 @@ jobs:
           restore-keys: spm-${{ runner.os }}-${{ steps.xcode.outputs.version }}-
 
       - name: Build
-        run: swift build --build-tests
+        # `-Xswiftc -warnings-as-errors` rather than
+        # `.treatAllWarnings(as: .error)` in Package.swift: the manifest setting
+        # collides with the `-suppress-warnings` Xcode gives every package
+        # target, which breaks every app that depends on us. This job is the
+        # only thing that keeps warnings fatal now, so keep the flag on both
+        # steps.
+        run: swift build --build-tests -Xswiftc -warnings-as-errors
 
       - name: Test
         # The snapshot suite runs in its own workflow so that a pixel difference
         # never masks a logic failure.
-        run: swift test --skip NextcloudUISnapshotTests
+        run: swift test --skip NextcloudUISnapshotTests -Xswiftc -warnings-as-errors
 
   api-breakage:
     name: API breaking changes

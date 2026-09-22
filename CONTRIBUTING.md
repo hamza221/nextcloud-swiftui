@@ -12,6 +12,12 @@ make test
 make lint
 ```
 
+Use the `make` targets rather than a bare `swift build`. Warnings are errors
+here, and the flag comes from the build command (`-Xswiftc
+-warnings-as-errors`), not from `Package.swift`. In the manifest it breaks every
+Xcode app that depends on the package; the comment on `sharedSwiftSettings`
+explains it.
+
 ## Commits and pull requests
 
 [Conventional Commits][cc]. CI gates the **pull request title**, because

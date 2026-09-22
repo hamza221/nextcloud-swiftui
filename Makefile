@@ -4,6 +4,14 @@
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
 
+# Warnings are errors, and the flag lives here rather than in Package.swift.
+# `.treatAllWarnings(as: .error)` in the manifest collides with the
+# `-suppress-warnings` that Xcode hands every package target, and swiftc refuses
+# both at once, so no Xcode app can depend on the package. `-Xswiftc` covers
+# this package's own targets and leaves its dependencies alone. Package.swift
+# has the long version of the story.
+WARNINGS_AS_ERRORS := -Xswiftc -warnings-as-errors
+
 .PHONY: help
 help: ## Show this help
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -16,11 +24,11 @@ setup: ## Install the local git hooks
 
 .PHONY: build
 build: ## Build all targets
-	swift build
+	swift build $(WARNINGS_AS_ERRORS)
 
 .PHONY: test
 test: ## Run the unit tests
-	swift test
+	swift test $(WARNINGS_AS_ERRORS)
 
 .PHONY: showcase
 showcase: ## Run the interactive component showcase
