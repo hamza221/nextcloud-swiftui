@@ -12,12 +12,25 @@ import PackageDescription
 /// UI package and is painful to retrofit, so it is set from day one. Targets
 /// that need to run off the main actor (the value-type colour maths in
 /// `NextcloudDesign`) opt out locally with `nonisolated`.
+///
+/// Do not add `.treatAllWarnings(as: .error)` here. It emits
+/// `-warnings-as-errors`, and Xcode passes `-suppress-warnings` to every
+/// package target it builds. swiftc rejects the pair with
+/// `error: conflicting options '-warnings-as-errors' and '-suppress-warnings'`,
+/// which kills the build of any app that depends on this package, before the
+/// app's own code is ever compiled. The consumer cannot clear the suppression:
+/// package targets build in a project Xcode synthesises. `swift build` on its
+/// own never sees the flag, so the repo's own CI would not catch it.
+///
+/// Warnings are still errors. The flag now comes from the build command,
+/// `swift build -Xswiftc -warnings-as-errors`, wired into `make build`,
+/// `make test` and the build-and-test workflow. `-Xswiftc` applies to the root
+/// package's targets and not to its dependencies, which is the scope we want.
 let sharedSwiftSettings: [SwiftSetting] = [
     .swiftLanguageMode(.v6),
     .defaultIsolation(MainActor.self),
     .enableUpcomingFeature("ExistentialAny"),
     .enableUpcomingFeature("InternalImportsByDefault"),
-    .treatAllWarnings(as: .error),
 ]
 
 /// The DocC plugin is gated behind an environment variable so that consumers of
